@@ -1,9 +1,17 @@
-org 0x7C00
+org 0x0
 bits 16
 %define ENDL 0x0D,0x0A
 
 start:
-	jmp main
+
+	;prints message
+	mov si,msg_hello
+	call puts
+
+.halt:
+	cli
+	hlt
+
 
 ;Prints a string
 ;Params
@@ -31,27 +39,4 @@ puts:
 	pop si
 	ret
 
-
-main:
-	;setup segement
-	mov ax,0
-	mov ds,ax
-	mov es,ax
-
-	;setup stack
-	mov ss,ax
-	mov sp,0x7C00	;pops downwards
-
-	;prints message
-	mov si,msg_hello
-	call puts
-
-	hlt
-
-.halt:
-	jmp .halt
-
-msg_hello: db 'Welcome gang',ENDL,0
-
-times 510-($-$$) db 0
-dw 0AA55h
+msg_hello: db "Welcome gang, we're in kernel now",ENDL,0
