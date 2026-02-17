@@ -359,13 +359,12 @@ disk_reset:
 
 msg_hello: db 'Welcome gang',ENDL,0
 msg_read_failed: db 'Read from disk failed!',ENDL,0
-msg_kernel_not_found: db 'KERNEL.BIN not found',ENDL,0
-file_kernel_bin: db 'KERNEL  BIN'
+msg_kernel_not_found: db 'STAGE2.BIN not found',ENDL,0
+file_kernel_bin: db 'STAGE2  BIN'
 kernel_cluster: dw 0
 KERNEL_LOAD_SEGMENT equ 0x2000
 KERNEL_LOAD_OFFSET	equ 0
 times 510-($-$$) db 0
 dw 0AA55h
-
 
 buffer:
