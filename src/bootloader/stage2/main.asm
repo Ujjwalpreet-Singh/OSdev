@@ -1,42 +1,22 @@
-org 0x0
 bits 16
-%define ENDL 0x0D,0x0A
 
-start:
+section _ENTRY class=CODE
 
-	;prints message
-	mov si,msg_hello
-	call puts
+extern _cstart_
+global entry
 
-.halt:
+entry:
 	cli
+	mov ax,ds
+	mov ss,dx
+	mov sp,0
+	mov bp,sp
+	sti
+
+	;expect boot drive in dl
+	xor dh,dh
+	push dx
+	call _cstart_
+
+	cli 
 	hlt
-
-
-;Prints a string
-;Params
-;	-d:si points to string
-
-
-puts:
-	;save registers
-	push si
-	push ax
-
-.loop:
-	lodsb  	;loads next char
-	or al,al	;verify next char is not null
-	jz .done
-
-	mov ah,0x0e
-	mov bh,0
-	int 0x10
-
-	jmp .loop
-
-.done:
-	pop ax
-	pop si
-	ret
-
-msg_hello: db "Welcome gang, we're in kernel now",ENDL,0

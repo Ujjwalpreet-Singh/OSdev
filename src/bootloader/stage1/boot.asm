@@ -105,33 +105,33 @@ start:
 	mov bx,buffer
 	call disk_read
 
-	;search for kernel.bin
+	;search for stage2.bin
 
 	xor bx,bx
 	mov di,buffer
 
-.search_kernel:
+.search_stage2:
 
-	mov si,file_kernel_bin
+	mov si,file_stage2_bin
 	mov cx,11
 	push di
 	repe cmpsb
 	pop di
-	je .found_kernel
+	je .found_stage2
 
 	add di,32
 	inc bx
 	cmp bx,[bdb_dir_entries_count]
-	jl .search_kernel
+	jl .search_stage2
 
-	;kernel not found
-	jmp kernel_not_found_error
+	;stage2 not found
+	jmp stage2_not_found_error
 
-.found_kernel:
+.found_stage2:
 
 	; di should have the address to the entry
 	mov ax, [di+26]				;first logical cluster field (offset 26)
-	mov [kernel_cluster],ax
+	mov [stage2_cluster],ax
 
 	; load FAT from fisk into memory
 	mov ax,[bdb_reserved_sectors]
@@ -140,16 +140,16 @@ start:
 	mov dl, [ebr_drive_number]
 	call disk_read
 
-	; read kernel and process FAT chain
-	mov bx, KERNEL_LOAD_SEGMENT
+	; read stage2 and process FAT chain
+	mov bx, STAGE2_LOAD_SEGMENT
 	mov es,bx
-	mov bx,KERNEL_LOAD_OFFSET
+	mov bx,STAGE2_LOAD_OFFSET
 
-.load_kernel_loop:
+.load_stage2_loop:
 
 	;Read next cluster
-	mov ax,[kernel_cluster]
-	add ax,31					;first cluster = [kernel_cluster-2]*sectors_per_clluster + start_sector
+	mov ax,[stage2_cluster]
+	add ax,31					;first cluster = [stage2_cluster-2]*sectors_per_clluster + start_sector
 								;start_sector = reserved + fats + root dir size = 1+18+134 = 33
 	mov cl,1
 	mov dl,[ebr_drive_number]
@@ -158,7 +158,7 @@ start:
 	add bx,[bdb_bytes_per_sector]
 
 	; compute location of next cluster
-	mov ax,[kernel_cluster]
+	mov ax,[stage2_cluster]
 	mov cx,3
 	mul cx
 	mov cx,2
@@ -182,18 +182,18 @@ start:
 	cmp ax,0x0FF8					;end of chain
 	jae .read_finish
 
-	mov [kernel_cluster],ax
-	jmp .load_kernel_loop
+	mov [stage2_cluster],ax
+	jmp .load_stage2_loop
 
 .read_finish:
 	;boot device in dl
 	mov dl,[ebr_drive_number]
 	;set segment registers
-	mov ax,KERNEL_LOAD_SEGMENT
+	mov ax,STAGE2_LOAD_SEGMENT
 	mov ds,ax
 	mov es,ax
 
-	jmp KERNEL_LOAD_SEGMENT:KERNEL_LOAD_OFFSET
+	jmp STAGE2_LOAD_SEGMENT:STAGE2_LOAD_OFFSET
 
 	jmp wait_key_and_reboot
 
@@ -235,9 +235,9 @@ floppy_error:
 	call puts
 	jmp wait_key_and_reboot
 
-kernel_not_found_error:
+stage2_not_found_error:
 
-	mov si,msg_kernel_not_found
+	mov si,msg_stage2_not_found
 	call puts
 	jmp wait_key_and_reboot
 
@@ -359,11 +359,11 @@ disk_reset:
 
 msg_hello: db 'Welcome gang',ENDL,0
 msg_read_failed: db 'Read from disk failed!',ENDL,0
-msg_kernel_not_found: db 'STAGE2.BIN not found',ENDL,0
-file_kernel_bin: db 'STAGE2  BIN'
-kernel_cluster: dw 0
-KERNEL_LOAD_SEGMENT equ 0x2000
-KERNEL_LOAD_OFFSET	equ 0
+msg_stage2_not_found: db 'STAGE2.BIN not found',ENDL,0
+file_stage2_bin: db 'STAGE2  BIN'
+stage2_cluster: dw 0
+STAGE2_LOAD_SEGMENT equ 0x2000
+STAGE2_LOAD_OFFSET	equ 0
 times 510-($-$$) db 0
 dw 0AA55h
 

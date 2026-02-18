@@ -1,0 +1,87 @@
+Open Watcom Linker Version 2.0 beta Feb 17 2026 10:28:20 (32-bit)
+Copyright (c) 2002-2026 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Created on:       26/02/18 08:11:06
+Executable Image: /home/Ythunder/Desktop/OSdev/build/stage2.bin
+creating a RAW Binary Image executable
+
+
+                        +------------+
+                        |   Groups   |
+                        +------------+
+
+Group                           Address              Size
+=====                           =======              ====
+
+DGROUP                          0000009a             0000000c
+
+
+
+                        +--------------+
+                        |   Segments   |
+                        +--------------+
+
+Segment                Class          Group          Address         Size
+=======                =====          =====          =======         ====
+
+_ENTRY                 CODE           AUTO           00000000        00000013
+_TEXT                  CODE           AUTO           00000013        00000086
+CONST                  DATA           DGROUP         0000009a        0000000c
+CONST2                 DATA           DGROUP         000000a6        00000000
+_DATA                  DATA           DGROUP         000000a6        00000000
+
+
+                        +----------------+
+                        |   Memory Map   |
+                        +----------------+
+
+* = unreferenced symbol
++ = symbol only referenced locally
+
+Address        Symbol
+=======        ======
+
+Module: /home/Ythunder/Desktop/OSdev/build/stage2/asm/main.obj(main.asm)
+00000000       entry
+Module: /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj(x86.asm)
+00000013       _x86_Video_WriteCharTeletype
+Module: /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj(/home/Ythunder/Desktop/OSdev/src/bootloader/stage2/main.c)
+00000026       _cstart_
+Module: /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj(/home/Ythunder/Desktop/OSdev/src/bootloader/stage2/stdio.c)
+0000003b+      putc_
+00000062       puts_
+
+
+                        +---------------------+
+                        |   Module Segments   |
+                        +---------------------+
+
+! = 32-bit segment
+c = initialized communal data
+
+Module          Segment               Class           Address         Size
+======          =======               =====           =======         ====
+
+main.asm        _ENTRY                CODE           00000000         00000013
+x86.asm         _TEXT                 CODE           00000013         00000013
+/home/Ythunder/Desktop/OSdev/src/bootloader/stage2/main.c
+                _TEXT                 CODE           00000026         00000015
+                CONST                 DATA           0000009a         0000000c
+                CONST2                DATA           000000a6         00000000
+                _DATA                 DATA           000000a6         00000000
+/home/Ythunder/Desktop/OSdev/src/bootloader/stage2/stdio.c
+                _TEXT                 CODE           0000003b         0000005e
+                CONST                 DATA           000000a6         00000000
+                CONST2                DATA           000000a6         00000000
+                _DATA                 DATA           000000a6         00000000
+Warning! W1014: stack segment not found
+
+
+                        +-----------------------+
+                        |   Linker Statistics   |
+                        +-----------------------+
+
+Stack size:  0200 (512.)
+Memory size:  00a6 (166.)
+Entry point address: 00000000
+Link time: 00:00.00
