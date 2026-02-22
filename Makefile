@@ -1,7 +1,6 @@
-ASM=nasm
-SRC_DIR=src
+include buildscript/config.mk
 BUILD_DIR=build
-
+SRC_DIR=src
 
 .PHONY: all floppy_image kernel bootloader clean always
 

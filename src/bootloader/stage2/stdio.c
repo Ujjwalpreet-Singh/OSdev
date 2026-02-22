@@ -14,3 +14,8 @@ void puts(const char* str)
         str++;
     }
 }
+
+void clrscr()
+{
+    x86_Video_ClearScreen();
+}

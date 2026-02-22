@@ -1,36 +1,73 @@
-bits 16
+bits 32
+section .text
 
-section _TEXT class=CODE
+global x86_Video_WriteCharTeletype
+global x86_Video_ClearScreen
 
-;
-; int 10h ah=0Eh
-; args: character, page
-;
-global _x86_Video_WriteCharTeletype
-_x86_Video_WriteCharTeletype:
-    
-    ; make new call frame
-    push bp             ; save old call frame
-    mov bp, sp          ; initialize new call frame
 
-    ; save bx
-    push bx
+; ---------------------------------------
+; void x86_Video_WriteCharTeletype(char c, uint8_t page)
+; ---------------------------------------
+x86_Video_WriteCharTeletype:
 
-    ; [bp + 0] - old call frame
-    ; [bp + 2] - return address (small memory model => 2 bytes)
-    ; [bp + 4] - first argument (character)
-    ; [bp + 6] - second argument (page)
-    ; note: bytes are converted to words (you can't push a single byte on the stack)
-    mov ah, 0Eh
-    mov al, [bp + 4]
-    mov bh, [bp + 6]
+    push ebp
+    mov ebp, esp
+    push eax
+    push edi
+    push edx
 
-    int 10h
+    ; [ebp + 8]  = character
+    ; [ebp + 12] = page (ignored)
 
-    ; restore bx
-    pop bx
+    mov al, byte [ebp + 8]
 
-    ; restore old call frame
-    mov sp, bp
-    pop bp
+    ; Load current cursor position
+    mov edi, [cursor_pos]
+
+    ; VGA base
+    mov edx, 0xB8000
+    add edx, edi
+
+    ; Attribute = white on blue
+    mov ah, 0x1F
+
+    ; Write character + attribute
+    mov [edx], ax
+
+    ; Advance cursor (2 bytes per cell)
+    add edi, 2
+    mov [cursor_pos], edi
+
+    pop edx
+    pop edi
+    pop eax
+    pop ebp
     ret
+
+
+; ---------------------------------------
+; void x86_Video_ClearScreen()
+; ---------------------------------------
+x86_Video_ClearScreen:
+
+    push eax
+    push ecx
+    push edi
+
+    mov edi, 0xB8000        ; VGA base
+    mov ecx, 80 * 25        ; 2000 cells
+    mov ax, 0x1F20          ; 0x20 = space, 0x1F = white on blue
+
+    cld
+    rep stosw               ; fill screen
+
+    mov dword [cursor_pos], 0  ; reset cursor
+
+    pop edi
+    pop ecx
+    pop eax
+    ret
+
+
+section .data
+cursor_pos dd 0

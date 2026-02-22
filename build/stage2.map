@@ -1,87 +1,95 @@
-Open Watcom Linker Version 2.0 beta Feb 17 2026 10:28:20 (32-bit)
-Copyright (c) 2002-2026 The Open Watcom Contributors. All Rights Reserved.
-Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       26/02/18 08:11:06
-Executable Image: /home/Ythunder/Desktop/OSdev/build/stage2.bin
-creating a RAW Binary Image executable
 
+There are no discarded input sections
 
-                        +------------+
-                        |   Groups   |
-                        +------------+
+Memory Configuration
 
-Group                           Address              Size
-=====                           =======              ====
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
 
-DGROUP                          0000009a             0000000c
+Linker script and memory map
 
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/entry.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
+                0x00000500                        phys = 0x500
+                0x00000500                        . = phys
 
+.entry          0x00000500       0xc0
+                0x00000500                        __entry_start = .
+ *(.entry)
+ .entry         0x00000500       0xc0 /home/Ythunder/Desktop/OSdev/build/stage2/asm/entry.obj
+                0x00000500                entry
 
-                        +--------------+
-                        |   Segments   |
-                        +--------------+
+.text           0x000005c0      0x12c
+                0x000005c0                        __text_start = .
+ *(.text)
+ .text          0x000005c0       0x4c /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
+                0x000005c0                x86_Video_WriteCharTeletype
+                0x000005e9                x86_Video_ClearScreen
+ .text          0x0000060c       0x82 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+                0x0000060c                start
+                0x00000646                read_cr0
+                0x00000657                check_protected_mode
+ .text          0x0000068e       0x5e /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x0000068e                putc
+                0x000006af                puts
+                0x000006de                clrscr
 
-Segment                Class          Group          Address         Size
-=======                =====          =====          =======         ====
+.data           0x000006ec        0x4
+                0x000006ec                        __data_start = .
+ *(.data)
+ .data          0x000006ec        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
+ .data          0x000006f0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .data          0x000006f0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-_ENTRY                 CODE           AUTO           00000000        00000013
-_TEXT                  CODE           AUTO           00000013        00000086
-CONST                  DATA           DGROUP         0000009a        0000000c
-CONST2                 DATA           DGROUP         000000a6        00000000
-_DATA                  DATA           DGROUP         000000a6        00000000
+.rodata         0x000006f0       0x56
+                0x000006f0                        __rodata_start = .
+ *(.rodata)
+ .rodata        0x000006f0       0x56 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
 
+.bss            0x00000746        0x0
+                0x00000746                        __bss_start = .
+ *(.bss)
+ .bss           0x00000746        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .bss           0x00000746        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x00000746                        __end = .
+OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
 
-                        +----------------+
-                        |   Memory Map   |
-                        +----------------+
+.debug_info     0x00000000      0x1f7
+ .debug_info    0x00000000      0x105 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_info    0x00000105       0xf2 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-* = unreferenced symbol
-+ = symbol only referenced locally
+.debug_abbrev   0x00000000      0x1ac
+ .debug_abbrev  0x00000000       0xe2 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_abbrev  0x000000e2       0xca /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-Address        Symbol
-=======        ======
+.debug_aranges  0x00000000       0x40
+ .debug_aranges
+                0x00000000       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_aranges
+                0x00000020       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-Module: /home/Ythunder/Desktop/OSdev/build/stage2/asm/main.obj(main.asm)
-00000000       entry
-Module: /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj(x86.asm)
-00000013       _x86_Video_WriteCharTeletype
-Module: /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj(/home/Ythunder/Desktop/OSdev/src/bootloader/stage2/main.c)
-00000026       _cstart_
-Module: /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj(/home/Ythunder/Desktop/OSdev/src/bootloader/stage2/stdio.c)
-0000003b+      putc_
-00000062       puts_
+.debug_line     0x00000000       0xf4
+ .debug_line    0x00000000       0x84 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_line    0x00000084       0x70 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
+.debug_str      0x00000000      0x22b
+ .debug_str     0x00000000      0x119 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_str     0x00000119      0x112 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-                        +---------------------+
-                        |   Module Segments   |
-                        +---------------------+
+.debug_line_str
+                0x00000000      0x119
+ .debug_line_str
+                0x00000000       0x8c /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_line_str
+                0x0000008c       0x8d /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-! = 32-bit segment
-c = initialized communal data
+.comment        0x00000000       0x26
+ .comment       0x00000000       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .comment       0x00000013       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-Module          Segment               Class           Address         Size
-======          =======               =====           =======         ====
-
-main.asm        _ENTRY                CODE           00000000         00000013
-x86.asm         _TEXT                 CODE           00000013         00000013
-/home/Ythunder/Desktop/OSdev/src/bootloader/stage2/main.c
-                _TEXT                 CODE           00000026         00000015
-                CONST                 DATA           0000009a         0000000c
-                CONST2                DATA           000000a6         00000000
-                _DATA                 DATA           000000a6         00000000
-/home/Ythunder/Desktop/OSdev/src/bootloader/stage2/stdio.c
-                _TEXT                 CODE           0000003b         0000005e
-                CONST                 DATA           000000a6         00000000
-                CONST2                DATA           000000a6         00000000
-                _DATA                 DATA           000000a6         00000000
-Warning! W1014: stack segment not found
-
-
-                        +-----------------------+
-                        |   Linker Statistics   |
-                        +-----------------------+
-
-Stack size:  0200 (512.)
-Memory size:  00a6 (166.)
-Entry point address: 00000000
-Link time: 00:00.00
+.debug_frame    0x00000000       0xe8
+ .debug_frame   0x00000000       0x74 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_frame   0x00000074       0x74 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
