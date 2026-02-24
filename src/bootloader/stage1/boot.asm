@@ -10,18 +10,18 @@ jmp short start
 nop
 
 bdb_oem:						db 'MSWIN4.1'	;8bytes
-bdb_bytes_per_sector:			dw 512
-bdb_sectors_per_cluster:		db 1
-bdb_reserved_sectors:			dw 1
-bdb_fat_count:					db 2
-bdb_dir_entries_count:			dw 0E0h
-bdb_total_sectors:				dw 2880			;2880*512 = 1.44MB
-bdb_media_descriptor_type:		db 0F0h
-bdb_sectors_per_fat:			dw 9
-bdb_sectors_per_track:			dw 18
-bdb_heads:						dw 2
-bdb_hidden_sectors:				dd 0
-bdb_large_sector_count:			dd 0
+bdb_bytes_per_sector:        dw 512
+bdb_sectors_per_cluster:     db 4
+bdb_reserved_sectors:        dw 4
+bdb_fat_count:               db 2
+bdb_dir_entries_count:       dw 512
+bdb_total_sectors:           dw 0
+bdb_media_descriptor_type:   db 0F8h
+bdb_sectors_per_fat:         dw 64
+bdb_sectors_per_track:       dw 32
+bdb_heads:                   dw 4
+bdb_hidden_sectors:          dd 0
+bdb_large_sector_count:      dd 65536
 
 
 ; extended boot record
@@ -128,7 +128,6 @@ start:
 	jmp stage2_not_found_error
 
 .found_stage2:
-
 	; di should have the address to the entry
 	mov ax, [di+26]				;first logical cluster field (offset 26)
 	mov [stage2_cluster],ax
@@ -149,7 +148,13 @@ start:
 
 	;Read next cluster
 	mov ax,[stage2_cluster]
-	add ax,31					;first cluster = [stage2_cluster-2]*sectors_per_clluster + start_sector
+	sub ax,2
+
+	mov cl,[bdb_sectors_per_cluster]
+	xor ch,ch
+	mul cx
+
+	add ax,164					;first cluster = [stage2_cluster-2]*sectors_per_clluster + start_sector
 								;start_sector = reserved + fats + root dir size = 1+18+134 = 33
 	mov cl,1
 	mov dl,[ebr_drive_number]
@@ -157,26 +162,13 @@ start:
 
 	add bx,[bdb_bytes_per_sector]
 
-	; compute location of next cluster
 	mov ax,[stage2_cluster]
-	mov cx,3
-	mul cx
-	mov cx,2
-	div cx
-
+	shl ax,1
 	mov si,buffer
 	add si,ax
-	mov ax,[ds:si]
+	mov ax,[si]
 
-	or dx,dx
-	jz .even 
 
-.odd: 
-	shr ax,4
-	jmp .next_cluster_after
-
-.even:
-	and ax, 0x0FFF
 
 .next_cluster_after:
 	cmp ax,0x0FF8					;end of chain

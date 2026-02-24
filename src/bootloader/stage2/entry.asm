@@ -39,8 +39,8 @@ entry:
     ; 6 - setup segment registers
     mov ax, 0x10
     mov ds, ax
-    mov ss, ax
-   
+    mov es, ax
+ 
     ; clear bss (uninitialized data)
     mov edi, __bss_start
     mov ecx, __end

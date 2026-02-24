@@ -1,4 +1,4 @@
 #!/bin/bash
 
 make
-qemu-system-i386 -fda build/main_floppy.img
+qemu-system-i386 -drive format=raw,file=build/main.img

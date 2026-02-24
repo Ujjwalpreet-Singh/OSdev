@@ -22,48 +22,46 @@ LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
  .entry         0x00000500       0xc0 /home/Ythunder/Desktop/OSdev/build/stage2/asm/entry.obj
                 0x00000500                entry
 
-.text           0x000005c0      0x12c
+.text           0x000005c0       0xde
                 0x000005c0                        __text_start = .
  *(.text)
  .text          0x000005c0       0x4c /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
                 0x000005c0                x86_Video_WriteCharTeletype
                 0x000005e9                x86_Video_ClearScreen
- .text          0x0000060c       0x82 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .text          0x0000060c       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
                 0x0000060c                start
-                0x00000646                read_cr0
-                0x00000657                check_protected_mode
- .text          0x0000068e       0x5e /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x0000068e                putc
-                0x000006af                puts
-                0x000006de                clrscr
+ .text          0x00000640       0x5e /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x00000640                putc
+                0x00000661                puts
+                0x00000690                clrscr
 
-.data           0x000006ec        0x4
-                0x000006ec                        __data_start = .
+.data           0x000006a0        0x4
+                0x000006a0                        __data_start = .
  *(.data)
- .data          0x000006ec        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
- .data          0x000006f0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .data          0x000006f0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+ .data          0x000006a0        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
+ .data          0x000006a4        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .data          0x000006a4        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-.rodata         0x000006f0       0x56
-                0x000006f0                        __rodata_start = .
+.rodata         0x000006a4       0x2e
+                0x000006a4                        __rodata_start = .
  *(.rodata)
- .rodata        0x000006f0       0x56 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .rodata        0x000006a4       0x2e /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
 
-.bss            0x00000746        0x0
-                0x00000746                        __bss_start = .
+.bss            0x000006d2        0x0
+                0x000006d2                        __bss_start = .
  *(.bss)
- .bss           0x00000746        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .bss           0x00000746        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x00000746                        __end = .
+ .bss           0x000006d2        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .bss           0x000006d2        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x000006d2                        __end = .
 OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
 
-.debug_info     0x00000000      0x1f7
- .debug_info    0x00000000      0x105 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_info    0x00000105       0xf2 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+.debug_info     0x00000000      0x1b1
+ .debug_info    0x00000000       0xbf /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_info    0x000000bf       0xf2 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-.debug_abbrev   0x00000000      0x1ac
- .debug_abbrev  0x00000000       0xe2 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_abbrev  0x000000e2       0xca /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+.debug_abbrev   0x00000000      0x166
+ .debug_abbrev  0x00000000       0x9c /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_abbrev  0x0000009c       0xca /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
 .debug_aranges  0x00000000       0x40
  .debug_aranges
@@ -71,13 +69,13 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .debug_aranges
                 0x00000020       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-.debug_line     0x00000000       0xf4
- .debug_line    0x00000000       0x84 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_line    0x00000084       0x70 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+.debug_line     0x00000000       0xcb
+ .debug_line    0x00000000       0x5b /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_line    0x0000005b       0x70 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-.debug_str      0x00000000      0x22b
- .debug_str     0x00000000      0x119 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_str     0x00000119      0x112 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+.debug_str      0x00000000      0x1fe
+ .debug_str     0x00000000       0xec /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_str     0x000000ec      0x112 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
 .debug_line_str
                 0x00000000      0x119
@@ -90,6 +88,6 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .comment       0x00000000       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
  .comment       0x00000013       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
-.debug_frame    0x00000000       0xe8
- .debug_frame   0x00000000       0x74 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_frame   0x00000074       0x74 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+.debug_frame    0x00000000       0xa0
+ .debug_frame   0x00000000       0x2c /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_frame   0x0000002c       0x74 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
