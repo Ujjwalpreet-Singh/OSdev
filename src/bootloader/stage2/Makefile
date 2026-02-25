@@ -1,12 +1,34 @@
 TARGET_ASMFLAGS += -f elf
-TARGET_CFLAGS += -ffreestanding -nostdlib
+TARGET_CFLAGS += -ffreestanding -nostdlib -I.
 TARGET_LIBS += -lgcc
 TARGET_LINKFLAGS += -T linker.ld -nostdlib
 
-SOURCES_C=$(wildcard *.c)
-SOURCES_ASM=$(wildcard *.asm)
-OBJECTS_C=$(patsubst %.c, $(BUILD_DIR)/stage2/c/%.obj, $(SOURCES_C))
-OBJECTS_ASM=$(patsubst %.asm, $(BUILD_DIR)/stage2/asm/%.obj, $(SOURCES_ASM))
+HEADERS_C = $(wildcard *.h) \
+			$(wildcard */*.h) \
+			$(wildcard */*/*.h) \
+			$(wildcard */*/*/*.h)
+
+SOURCES_C = $(wildcard *.c) \
+			$(wildcard */*.c) \
+			$(wildcard */*/*.c) \
+			$(wildcard */*/*/*.c) \
+			isrs_gen.c
+
+OBJECTS_C = $(patsubst %.c, $(BUILD_DIR)/stage2/c/%.obj, $(SOURCES_C))
+
+HEADERS_ASM = $(wildcard *.inc) \
+			  $(wildcard */*.inc) \
+			  $(wildcard */*/*.inc) \
+			  $(wildcard */*/*/*.inc) \
+			  isrs_gen.inc
+
+SOURCES_ASM = $(wildcard *.asm) \
+			  $(wildcard */*.asm) \
+			  $(wildcard */*/*.asm) \
+			  $(wildcard */*/*/*.asm)
+
+
+OBJECTS_ASM = $(patsubst %.asm, $(BUILD_DIR)/stage2/asm/%.obj, $(SOURCES_ASM))
 
 .PHONY: all stage2 clean always
 
@@ -16,17 +38,20 @@ stage2: $(BUILD_DIR)/stage2.bin
 
 $(BUILD_DIR)/stage2.bin: $(OBJECTS_ASM) $(OBJECTS_C)
 	@$(TARGET_LD) $(TARGET_LINKFLAGS) -Wl,-Map=$(BUILD_DIR)/stage2.map -o $@ $^ $(TARGET_LIBS)
-	@echo "--> Created  stage2.bin"
+	@echo "--> Created:  stage2.bin"
 
-$(BUILD_DIR)/stage2/c/%.obj: %.c
+$(BUILD_DIR)/stage2/c/%.obj: %.c $(HEADERS_C)
 	@mkdir -p $(@D)
 	@$(TARGET_CC) $(TARGET_CFLAGS) -c -o $@ $<
 	@echo "--> Compiled: " $<
 
-$(BUILD_DIR)/stage2/asm/%.obj: %.asm
+$(BUILD_DIR)/stage2/asm/%.obj: %.asm $(HEADERS_ASM)
 	@mkdir -p $(@D)
 	@$(TARGET_ASM) $(TARGET_ASMFLAGS) -o $@ $<
 	@echo "--> Compiled: " $<
 
+arch/i686/isrs_gen.c arch/i686/isrs_gen.inc:
+	@$(SOURCE_DIR)/build_tools/generate_isrs.sh $@
+
 clean:
-	@rm -f $(BUILD_DIR)/stage2.bin
+	rm -f $(BUILD_DIR)/stage2.bin

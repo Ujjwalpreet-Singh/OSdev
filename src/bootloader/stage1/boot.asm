@@ -156,12 +156,13 @@ start:
 
 	add ax,164					;first cluster = [stage2_cluster-2]*sectors_per_clluster + start_sector
 								;start_sector = reserved + fats + root dir size = 1+18+134 = 33
-	mov cl,1
 	mov dl,[ebr_drive_number]
 	call disk_read
 
-	add bx,[bdb_bytes_per_sector]
-
+	mov ax,[bdb_sectors_per_cluster]
+	mul word [bdb_bytes_per_sector]
+	add bx,ax
+	
 	mov ax,[stage2_cluster]
 	shl ax,1
 	mov si,buffer
