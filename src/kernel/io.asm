@@ -1,4 +1,5 @@
 
+section .text
 global outb
 outb:
     [bits 32]

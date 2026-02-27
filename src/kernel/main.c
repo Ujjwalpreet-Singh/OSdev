@@ -1,13 +1,14 @@
 #include "stdio.h"
+#include <stdint.h>
 
-
-
-void __attribute__((section(".entry"))) kmain(void)
+__attribute__((naked, section(".entry")))
+void kmain(void)
 {
-    
-
     clrscr();
     puts("Kernel started\n");
 
-    while(1);
+    printf("hello");
+
+
+    while (1);
 }

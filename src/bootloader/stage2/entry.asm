@@ -33,30 +33,32 @@ entry:
     jmp dword 08h:.pmode
 
 .pmode:
-    ; we are now in protected mode!
     [bits 32]
-    
-    ; 6 - setup segment registers
+
     mov ax, 0x10
     mov ds, ax
     mov es, ax
- 
-    ; clear bss (uninitialized data)
+    mov fs, ax
+    mov gs, ax
+    mov ss, ax
+
+    mov esp, 0x200000
+
     mov edi, __bss_start
     mov ecx, __end
     sub ecx, edi
-    mov al, 0
-    cld
+    xor eax, eax
     rep stosb
 
-    ; expect boot drive in dl, send it as argument to cstart function
     xor edx, edx
     mov dl, [g_BootDrive]
     push edx
     call start
 
+hang:
     cli
     hlt
+    jmp hang
 
 
 EnableA20:

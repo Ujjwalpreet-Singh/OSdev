@@ -206,11 +206,11 @@ bool fat16_read_file(FAT16_DirEntry* file, void* buffer)
 
         printf("READ LBA=%u INTO %x\n", lba, ptr);
 
-        ata_read28(lba, 1, ptr);
+        ata_read28(lba, bpb.sectors_per_cluster, ptr);
 
         print_buffer("sector:", ptr, 16);
 
-        ptr += 512;
+        ptr += bpb.sectors_per_cluster * bpb.bytes_per_sector;
 
         cluster = fat[cluster];
     }

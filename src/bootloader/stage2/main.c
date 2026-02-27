@@ -71,9 +71,17 @@ void __attribute__((cdecl)) start(uint16_t bootDrive)
         fat16_read_file(&file, KERNEL_ADDR);
 
         print_buffer("kernel:", KERNEL_ADDR, 32);
-
-        KernelStart kernelStart = (KernelStart)KERNEL_ADDR;
-        kernelStart();
+        uint32_t esp;
+        __asm__("mov %%esp, %0":"=r"(esp));
+        printf("esp before jump = %x\n", esp);
+        __asm__ volatile(
+            "cli\n"
+            "mov $0x00300000, %%esp\n"
+            "mov %%esp, %%ebp\n"
+            "jmp *%0\n"
+            :
+            : "r"(KERNEL_ADDR)
+        );
     
     };
 
