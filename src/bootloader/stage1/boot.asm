@@ -31,7 +31,7 @@ ebr_drive_number:				db 0 				;0x00 floppy,0x80 hdd
 ebr_signature:					db 29h
 ebr_volume_id:					db 12h,34h,56h,78h	;serial no.
 ebr_volume_label:				db 'GOOS       ' 	;11 bytes
-ebr_system_id:					db 'FAT12   '		;8 bytes
+ebr_system_id:					db 'FAT16  '		;8 bytes
 
 
 start:
