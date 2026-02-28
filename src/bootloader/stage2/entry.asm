@@ -8,6 +8,8 @@ extern __end
 extern start
 global entry
 
+global BootInfo
+
 entry:
     cli
 
@@ -20,6 +22,12 @@ entry:
     mov sp, 0xFFF0
     mov bp, sp
 
+    ; call SETVBEMode
+    mov ax,1024
+    mov bx,768
+    mov cl,24
+    call SetVBEMode
+    jc $
     ; switch to protected mode
     call EnableA20          ; 2 - Enable A20 gate
     call LoadGDT            ; 3 - Load GDT
@@ -50,6 +58,9 @@ entry:
     xor eax, eax
     rep stosb
 
+    mov eax,BootInfo
+    push eax
+
     xor edx, edx
     mov dl, [g_BootDrive]
     push edx
@@ -60,6 +71,47 @@ hang:
     hlt
     jmp hang
 
+SetVBEMode:
+    [bits 16]
+
+    mov ax, ds
+    mov es, ax
+
+    mov ax, 0x4F01
+    mov cx, 0x187
+    mov di, VbeModeInfo
+    int 0x10
+
+    cmp ax, 0x004F
+    jne .fail
+
+    mov ax, 0x4F02
+    mov bx, 0x4187
+    int 0x10
+
+    cmp ax, 0x004F
+    jne .fail
+
+    mov eax, [VbeModeInfo + 40]
+    mov [BootInfo + 0], eax
+
+    mov ax, [VbeModeInfo + 16]
+    mov [BootInfo + 4], ax
+
+    mov ax, [VbeModeInfo + 18]
+    mov [BootInfo + 6], ax
+
+    mov ax, [VbeModeInfo + 20]
+    mov [BootInfo + 8], ax
+
+    mov al, [VbeModeInfo + 25]
+    mov [BootInfo + 10], al
+
+    ret
+
+.fail:
+    cli
+    hlt
 
 EnableA20:
     [bits 16]
@@ -120,6 +172,16 @@ LoadGDT:
     ret
 
 
+align 16 
+VbeModeInfo: 
+times 256 db 0 
+
+BootInfo: 
+Framebuffer dd 0 
+Pitch dw 0 
+Width dw 0 
+Height dw 0 
+BPP db 0
 
 KbdControllerDataPort               equ 0x60
 KbdControllerCommandPort            equ 0x64

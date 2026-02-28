@@ -6,7 +6,9 @@
 #include "ata.h"
 #include "fat.h"
 #include "memdefs.h"
-#include "jump.h"
+#include "bootinfo.h"
+#include "framebuffer.h"
+#include "psf.h"
 
 #define KERNEL_ADDR ((void*)0x500000)
 
@@ -14,20 +16,30 @@
 
 #define KERNEL_STACK_TOP 0x200000
 
-typedef void (*KernelStart)(void);
 
+extern unsigned char font_psf[];
 void check_protected_mode(void);
 void jump_to_kernel(uint32_t entry, uint32_t stack);
-void __attribute__((cdecl)) start(uint16_t bootDrive)
+void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
 {
+    psf_init(font_psf);
+    framebuffer_init(bootInfo);
+
+    clear(0x0);
+
+    print("VESA terminal initialized\n");
+    print("Hello kernel\n");
+
+
+
     ISR_Initialize();
     GDT_Initialize();
     IDT_Initialize();
     ata_init(bootDrive);
     clrscr();
     if (sizeof(void*) == 4)
-        puts("Pointer = 4 bytes\n");
-    puts("We're running in 32-bit now\n");
+        print("Pointer = 4 bytes\n");
+    print("We're running in 32-bit now\n");
     check_protected_mode();
 
     uint8_t buffer[512];
@@ -50,11 +62,11 @@ void __attribute__((cdecl)) start(uint16_t bootDrive)
     printf("FAT ready\n");
 
     fat16_read_root();
-    puts("reading into fat");
+    print("reading into fat");
     if (fat16_read_fat()){
-        puts("fat loaded!");
+        print("fat loaded!");
     } else {
-        puts("fat not loaded");
+        print("fat not loaded");
     }
 
     fat16_list();
@@ -100,7 +112,7 @@ uint32_t read_cr0()
 void check_protected_mode()
 {
     if (read_cr0() & 1)
-        puts("Protected Mode ON\n");
+        print("Protected Mode ON\n");
     else
-        puts("Still in Real Mode\n");
+        print("Still in Real Mode\n");
 }
