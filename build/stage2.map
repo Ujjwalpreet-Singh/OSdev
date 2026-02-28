@@ -30,6 +30,7 @@ LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
 LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
 LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
 LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
 LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
 LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
@@ -43,7 +44,7 @@ LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
                 0x00000500                entry
                 0x00000700                BootInfo
 
-.text           0x00000740     0x3be6
+.text           0x00000740     0x3e26
                 0x00000740                        __text_start = .
  *(.text)
  .text          0x00000740       0x2c /home/Ythunder/Desktop/OSdev/build/stage2/asm/gdt.obj
@@ -353,106 +354,112 @@ LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
                 0x00001f6c                ISR_RegisterHandler
  .text          0x00001f90     0x1489 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
                 0x00001f90                ISR_InitializeGates
- .text          0x00003419      0x25c /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .text          0x00003419      0x26d /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
                 0x00003419                start
-                0x0000362d                read_cr0
-                0x0000363e                check_protected_mode
- .text          0x00003675      0x145 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
-                0x00003675                psf_init
-                0x000036a8                draw_char
-                0x00003740                print
- .text          0x000037ba      0x915 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x000037ba                putchr
-                0x000037e9                putcolor
-                0x0000381b                getchr
-                0x0000383d                getcolor
-                0x00003862                setcursor
-                0x000038d3                clrscr
-                0x00003961                scrollback
-                0x00003a4f                putc
-                0x00003b5f                puts
-                0x00003b8e                printf_unsigned
-                0x00003c32                printf_signed
-                0x00003c8f                printf
-                0x00004036                print_buffer
- *fill*         0x000040cf        0x1 
- .text          0x000040d0      0x11a /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
-                0x000040d0                __udivdi3
- *fill*         0x000041ea        0x6 
- .text          0x000041f0      0x136 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
-                0x000041f0                __umoddi3
+                0x0000363e                read_cr0
+                0x0000364f                check_protected_mode
+ .text          0x00003686      0x229 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+                0x00003686                oguriprint
+ .text          0x000038af      0x142 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+                0x000038af                psf_init
+                0x000038e2                draw_char
+                0x0000397a                print
+ .text          0x000039f1      0x915 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x000039f1                putchr
+                0x00003a20                putcolor
+                0x00003a52                getchr
+                0x00003a74                getcolor
+                0x00003a99                setcursor
+                0x00003b0a                clrscr
+                0x00003b98                scrollback
+                0x00003c86                putc
+                0x00003d96                puts
+                0x00003dc5                printf_unsigned
+                0x00003e69                printf_signed
+                0x00003ec6                printf
+                0x0000426d                print_buffer
+ *fill*         0x00004306        0xa 
+ .text          0x00004310      0x11a /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+                0x00004310                __udivdi3
+ *fill*         0x0000442a        0x6 
+ .text          0x00004430      0x136 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+                0x00004430                __umoddi3
 
-.data           0x00004340     0x13f8
-                0x00004340                        __data_start = .
+.data           0x00004580     0x13f8
+                0x00004580                        __data_start = .
  *(.data)
- .data          0x00004340        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
- .data          0x00004344        0x1 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- *fill*         0x00004345        0x3 
- .data          0x00004348        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- *fill*         0x00004350       0x10 
- .data          0x00004360     0x13a4 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
-                0x00004360                font_psf
-                0x00005700                _usr_share_kbd_consolefonts_Lat2_Terminus16_psfu_len
- .data          0x00005704        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .data          0x00005704       0x1e /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
-                0x00005704                g_GDT
-                0x0000571c                g_GDTDescriptor
- *fill*         0x00005722        0x2 
- .data          0x00005724        0x6 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
-                0x00005724                g_IDTDescriptor
- .data          0x0000572a        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- .data          0x0000572a        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .data          0x0000572a        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- *fill*         0x0000572a        0x2 
- .data          0x0000572c        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .data          0x00005734        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x00005734                g_ScreenBuffer
- .data          0x00005738        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .data          0x00005738        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+ .data          0x00004580        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
+ .data          0x00004584        0x1 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
+ *fill*         0x00004585        0x3 
+ .data          0x00004588        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
+ *fill*         0x00004590       0x10 
+ .data          0x000045a0     0x13a4 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
+                0x000045a0                font_psf
+                0x00005940                _usr_share_kbd_consolefonts_Lat2_Terminus16_psfu_len
+ .data          0x00005944        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
+ .data          0x00005944       0x1e /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
+                0x00005944                g_GDT
+                0x0000595c                g_GDTDescriptor
+ *fill*         0x00005962        0x2 
+ .data          0x00005964        0x6 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
+                0x00005964                g_IDTDescriptor
+ .data          0x0000596a        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
+ .data          0x0000596a        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
+ .data          0x0000596a        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .data          0x0000596a        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+ *fill*         0x0000596a        0x2 
+ .data          0x0000596c        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+ .data          0x00005974        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x00005974                g_ScreenBuffer
+ .data          0x00005978        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .data          0x00005978        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
 
-.rodata         0x00005740      0x5ef
-                0x00005740                        __rodata_start = .
+.rodata         0x00005980     0x108f
+                0x00005980                        __rodata_start = .
  *(.rodata)
- .rodata        0x00005740      0x179 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- *fill*         0x000058b9        0x7 
- .rodata        0x000058c0      0x34f /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- .rodata        0x00005c0f      0x100 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- *fill*         0x00005d0f        0x1 
- .rodata        0x00005d10       0x1f /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x00005d10                SCREEN_WIDTH
-                0x00005d14                SCREEN_HEIGHT
-                0x00005d18                DEFAULT_COLOR
-                0x00005d1c                g_HexChars
+ .rodata        0x00005980      0x179 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
+ *fill*         0x00005af9        0x7 
+ .rodata        0x00005b00      0x34f /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
+ .rodata        0x00005e4f      0x100 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ *fill*         0x00005f4f        0x1 
+ .rodata        0x00005f50      0xa9d /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+ *fill*         0x000069ed        0x3 
+ .rodata        0x000069f0       0x1f /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x000069f0                SCREEN_WIDTH
+                0x000069f4                SCREEN_HEIGHT
+                0x000069f8                DEFAULT_COLOR
+                0x000069fc                g_HexChars
 
-.eh_frame       0x00005d30       0xd8
- .eh_frame      0x00005d30       0x64 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .eh_frame      0x00005d94       0x74 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+.eh_frame       0x00006a10       0xd8
+ .eh_frame      0x00006a10       0x64 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .eh_frame      0x00006a74       0x74 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
 
-.bss            0x00005e20      0xc74
-                0x00005e20                        __bss_start = .
+.bss            0x00006b00      0xc74
+                0x00006b00                        __bss_start = .
  *(.bss)
- .bss           0x00005e20        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- .bss           0x00005e20       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- .bss           0x00005e54        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
- .bss           0x00005e54       0x14 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .bss           0x00005e68        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
- *fill*         0x00005e68       0x18 
- .bss           0x00005e80      0x800 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
-                0x00005e80                g_IDT
- .bss           0x00006680      0x400 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
-                0x00006680                g_ISRHandlers
- .bss           0x00006a80        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .bss           0x00006a80        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .bss           0x00006a80        0xc /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .bss           0x00006a8c        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x00006a8c                g_ScreenX
-                0x00006a90                g_ScreenY
- .bss           0x00006a94        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .bss           0x00006a94        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
-                0x00006a94                        __end = .
+ .bss           0x00006b00        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
+ .bss           0x00006b00       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
+ .bss           0x00006b34        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
+ .bss           0x00006b34       0x14 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
+ .bss           0x00006b48        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
+ *fill*         0x00006b48       0x18 
+ .bss           0x00006b60      0x800 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
+                0x00006b60                g_IDT
+ .bss           0x00007360      0x400 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
+                0x00007360                g_ISRHandlers
+ .bss           0x00007760        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
+ .bss           0x00007760        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .bss           0x00007760        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+ .bss           0x00007760        0xc /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+ .bss           0x0000776c        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x0000776c                g_ScreenX
+                0x00007770                g_ScreenY
+ .bss           0x00007774        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .bss           0x00007774        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+                0x00007774                        __end = .
 OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
 
-.debug_info     0x00000000     0x30f8
+.debug_info     0x00000000     0x31a8
  .debug_info    0x00000000      0x21c /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
  .debug_info    0x0000021c      0x5b9 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
  .debug_info    0x000007d5       0x9b /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
@@ -461,13 +468,14 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .debug_info    0x00000d06      0x24e /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
  .debug_info    0x00000f54      0x29c /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
  .debug_info    0x000011f0      0xd09 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .debug_info    0x00001ef9      0x434 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_info    0x0000232d      0x1fe /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_info    0x0000252b      0x54c /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_info    0x00002a77      0x331 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_info    0x00002da8      0x350 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+ .debug_info    0x00001ef9      0x441 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_info    0x0000233a       0xa3 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+ .debug_info    0x000023dd      0x1fe /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+ .debug_info    0x000025db      0x54c /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+ .debug_info    0x00002b27      0x331 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .debug_info    0x00002e58      0x350 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
 
-.debug_abbrev   0x00000000     0x1043
+.debug_abbrev   0x00000000     0x10b0
  .debug_abbrev  0x00000000      0x122 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
  .debug_abbrev  0x00000122      0x1eb /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
  .debug_abbrev  0x0000030d       0x5e /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
@@ -477,12 +485,13 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .debug_abbrev  0x000006a1      0x150 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
  .debug_abbrev  0x000007f1       0xbf /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
  .debug_abbrev  0x000008b0      0x1c1 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_abbrev  0x00000a71      0x112 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_abbrev  0x00000b83      0x1f6 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_abbrev  0x00000d79      0x15a /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_abbrev  0x00000ed3      0x170 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+ .debug_abbrev  0x00000a71       0x6d /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+ .debug_abbrev  0x00000ade      0x112 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+ .debug_abbrev  0x00000bf0      0x1f6 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+ .debug_abbrev  0x00000de6      0x15a /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .debug_abbrev  0x00000f40      0x170 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
 
-.debug_aranges  0x00000000      0x198
+.debug_aranges  0x00000000      0x1b8
  .debug_aranges
                 0x00000000       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
  .debug_aranges
@@ -502,15 +511,17 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .debug_aranges
                 0x000000f8       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
  .debug_aranges
-                0x00000118       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+                0x00000118       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
  .debug_aranges
-                0x00000138       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x00000138       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
  .debug_aranges
-                0x00000158       0x20 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+                0x00000158       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
  .debug_aranges
-                0x00000178       0x20 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+                0x00000178       0x20 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .debug_aranges
+                0x00000198       0x20 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
 
-.debug_line     0x00000000     0x12c0
+.debug_line     0x00000000     0x1341
  .debug_line    0x00000000      0x10e /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
  .debug_line    0x0000010e      0x31f /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
  .debug_line    0x0000042d       0x36 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
@@ -519,13 +530,14 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .debug_line    0x00000620       0x85 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
  .debug_line    0x000006a5       0xd0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
  .debug_line    0x00000775      0x25b /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .debug_line    0x000009d0      0x127 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_line    0x00000af7       0xd1 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_line    0x00000bc8      0x3ad /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_line    0x00000f75      0x17b /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_line    0x000010f0      0x1d0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+ .debug_line    0x000009d0      0x137 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_line    0x00000b07       0x71 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+ .debug_line    0x00000b78       0xd1 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+ .debug_line    0x00000c49      0x3ad /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+ .debug_line    0x00000ff6      0x17b /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .debug_line    0x00001171      0x1d0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
 
-.debug_str      0x00000000     0x2106
+.debug_str      0x00000000     0x21f6
  .debug_str     0x00000000      0x140 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
  .debug_str     0x00000140      0x36f /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
  .debug_str     0x000004af      0x10d /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
@@ -534,14 +546,15 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .debug_str     0x00000a2b      0x278 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
  .debug_str     0x00000ca3      0x1a8 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
  .debug_str     0x00000e4b      0x854 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .debug_str     0x0000169f      0x2db /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_str     0x0000197a      0x148 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_str     0x00001ac2      0x24a /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_str     0x00001d0c      0x1fd /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_str     0x00001f09      0x1fd /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+ .debug_str     0x0000169f      0x2e6 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_str     0x00001985       0xe5 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+ .debug_str     0x00001a6a      0x148 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+ .debug_str     0x00001bb2      0x24a /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+ .debug_str     0x00001dfc      0x1fd /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .debug_str     0x00001ff9      0x1fd /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
 
 .debug_line_str
-                0x00000000      0xaf2
+                0x00000000      0xb92
  .debug_line_str
                 0x00000000       0xcd /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
  .debug_line_str
@@ -559,17 +572,19 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .debug_line_str
                 0x0000059f       0xe2 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
  .debug_line_str
-                0x00000681      0x115 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+                0x00000681      0x122 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
  .debug_line_str
-                0x00000796       0xdb /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+                0x000007a3       0x93 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
  .debug_line_str
-                0x00000871       0xe1 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+                0x00000836       0xdb /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
  .debug_line_str
-                0x00000952       0xd0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+                0x00000911       0xe1 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
  .debug_line_str
-                0x00000a22       0xd0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+                0x000009f2       0xd0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .debug_line_str
+                0x00000ac2       0xd0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
 
-.comment        0x00000000       0xf7
+.comment        0x00000000      0x10a
  .comment       0x00000000       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
  .comment       0x00000013       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
  .comment       0x00000026       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
@@ -579,12 +594,13 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .comment       0x00000072       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
  .comment       0x00000085       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
  .comment       0x00000098       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .comment       0x000000ab       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .comment       0x000000be       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .comment       0x000000d1       0x13 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .comment       0x000000e4       0x13 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+ .comment       0x000000ab       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+ .comment       0x000000be       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+ .comment       0x000000d1       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+ .comment       0x000000e4       0x13 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
+ .comment       0x000000f7       0x13 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
 
-.debug_frame    0x00000000      0x6fc
+.debug_frame    0x00000000      0x730
  .debug_frame   0x00000000       0xd8 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
  .debug_frame   0x000000d8      0x114 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
  .debug_frame   0x000001ec       0xd8 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
@@ -593,8 +609,9 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
  .debug_frame   0x0000038c       0x80 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
  .debug_frame   0x0000040c       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
  .debug_frame   0x00000440       0x6c /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_frame   0x000004ac       0x98 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_frame   0x00000544      0x1b8 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
+ .debug_frame   0x000004ac       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+ .debug_frame   0x000004e0       0x98 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+ .debug_frame   0x00000578      0x1b8 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
 
 .debug_rnglists
                 0x00000000       0x60

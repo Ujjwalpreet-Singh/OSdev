@@ -46,7 +46,7 @@ void print(const char* s)
         }
         else
         {
-            draw_char(cursor_x, cursor_y, *s, 0xFF000000);
+            draw_char(cursor_x, cursor_y, *s, 0xFFFFFFFF);
             cursor_x += width;
         }
         s++;

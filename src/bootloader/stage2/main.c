@@ -9,6 +9,7 @@
 #include "bootinfo.h"
 #include "framebuffer.h"
 #include "psf.h"
+#include "printoguri.h"
 
 #define KERNEL_ADDR ((void*)0x500000)
 
@@ -29,6 +30,7 @@ void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
 
     print("VESA terminal initialized\n");
     print("Hello kernel\n");
+    oguriprint();
 
 
 
@@ -90,9 +92,15 @@ void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
             "cli\n"
             "mov $0x00300000, %%esp\n"
             "mov %%esp, %%ebp\n"
-            "jmp *%0\n"
+
+            "push %0\n"     // BootInfo*
+            "push %1\n"     // bootDrive
+
+            "jmp *%2\n"
             :
-            : "r"(KERNEL_ADDR)
+            : "r"(bootInfo),
+            "r"((uint32_t)bootDrive),
+            "r"(KERNEL_ADDR)
         );
     
     };

@@ -78,7 +78,7 @@ SetVBEMode:
     mov es, ax
 
     mov ax, 0x4F01
-    mov cx, 0x187
+    mov cx, 0x192
     mov di, VbeModeInfo
     int 0x10
 
@@ -86,7 +86,7 @@ SetVBEMode:
     jne .fail
 
     mov ax, 0x4F02
-    mov bx, 0x4187
+    mov bx, 0x4192
     int 0x10
 
     cmp ax, 0x004F
