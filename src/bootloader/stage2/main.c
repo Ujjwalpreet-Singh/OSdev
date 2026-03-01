@@ -1,5 +1,4 @@
 #include "stdint.h"
-#include "stdio.h"
 #include "idt.h"
 #include "gdt.h"
 #include "isr.h"
@@ -10,6 +9,8 @@
 #include "framebuffer.h"
 #include "psf.h"
 #include "printoguri.h"
+#include "timer.h"
+#include "pic.h"
 
 #define KERNEL_ADDR ((void*)0x500000)
 
@@ -28,17 +29,20 @@ void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
 
     clear(0x0);
 
-    print("VESA terminal initialized\n");
-    print("Hello kernel\n");
+    printfv("VESA terminal initialized\n");
+    printfv("Hello kernel\n");
     oguriprint();
 
-
-
+    
     ISR_Initialize();
     GDT_Initialize();
     IDT_Initialize();
     ata_init(bootDrive);
-    clrscr();
+    PIT_init(1000);
+    PIC_Remap();
+    __asm__("sti");
+    
+
     if (sizeof(void*) == 4)
         print("Pointer = 4 bytes\n");
     print("We're running in 32-bit now\n");
@@ -48,20 +52,20 @@ void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
 
     ata_read28(0, 1, buffer);
 
-    printf("OEM: ");
+    printfv("OEM: ");
 
     for (int i = 3; i < 11; i++)
-        putc(buffer[i]);
+        printfv("%c",buffer[i]);
 
-    printf("\n");
+    printfv("\n");
 
         if(!fat16_init())
     {
-        printf("FAT init failed\n");
+        printfv("FAT init failed\n");
         while(1);
     }
 
-    printf("FAT ready\n");
+    printfv("FAT ready\n");
 
     fat16_read_root();
     print("reading into fat");
@@ -77,17 +81,19 @@ void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
 
     uint16_t ss;
     __asm__("mov %%ss, %0" : "=r"(ss));
-    printf("SS=%x\n", ss);
+    printfv("SS=%x\n", ss);
     FAT16_DirEntry file;
 
     if(fat16_find("KERNEL.BIN", &file))
     {
         fat16_read_file(&file, KERNEL_ADDR);
 
-        print_buffer("kernel:", KERNEL_ADDR, 32);
         uint32_t esp;
         __asm__("mov %%esp, %0":"=r"(esp));
-        printf("esp before jump = %x\n", esp);
+        printfv("esp before jump = %x\n", esp);
+        print("Wait 2 seconds for kernel to load..");
+        sleep(2000);
+
         __asm__ volatile(
             "cli\n"
             "mov $0x00300000, %%esp\n"

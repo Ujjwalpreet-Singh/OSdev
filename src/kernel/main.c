@@ -12,7 +12,6 @@ void kmain(uint16_t bootDrive, BootInfo* bootInfo)
     psf_init(font_psf);
 
     clear(0xF);
-
     print("Second stage kernel running\n");
     oguriprint();
 
