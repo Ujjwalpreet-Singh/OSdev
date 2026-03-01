@@ -12,7 +12,7 @@ SOURCES_C = $(wildcard *.c) \
 			$(wildcard */*.c) \
 			$(wildcard */*/*.c) \
 			$(wildcard */*/*/*.c) \
-			isrs_gen.c
+			drivers/isrs_gen.c
 
 OBJECTS_C = $(patsubst %.c, $(BUILD_DIR)/stage2/c/%.obj, $(SOURCES_C))
 
@@ -20,7 +20,7 @@ HEADERS_ASM = $(wildcard *.inc) \
 			  $(wildcard */*.inc) \
 			  $(wildcard */*/*.inc) \
 			  $(wildcard */*/*/*.inc) \
-			  isrs_gen.inc
+			  drivers/isrs_gen.inc
 
 SOURCES_ASM = $(wildcard *.asm) \
 			  $(wildcard */*.asm) \

@@ -1,16 +1,16 @@
 #include "stdint.h"
-#include "idt.h"
-#include "gdt.h"
-#include "isr.h"
-#include "ata.h"
-#include "fat.h"
+#include "drivers/idt.h"
+#include "drivers/gdt.h"
+#include "drivers/isr.h"
+#include "disk/ata.h"
+#include "disk/fat.h"
 #include "memdefs.h"
-#include "bootinfo.h"
-#include "framebuffer.h"
-#include "psf.h"
-#include "printoguri.h"
-#include "timer.h"
-#include "pic.h"
+#include "input-output/bootinfo.h"
+#include "input-output/framebuffer.h"
+#include "input-output/psf.h"
+#include "input-output/printoguri.h"
+#include "input-output/timer.h"
+#include "input-output/pic.h"
 
 #define KERNEL_ADDR ((void*)0x500000)
 
@@ -29,8 +29,8 @@ void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
 
     clear(0x0);
 
-    printfv("VESA terminal initialized\n");
-    printfv("Hello kernel\n");
+    printf("VESA terminal initialized\n");
+    printf("Hello kernel\n");
     oguriprint();
 
     
@@ -52,20 +52,20 @@ void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
 
     ata_read28(0, 1, buffer);
 
-    printfv("OEM: ");
+    printf("OEM: ");
 
     for (int i = 3; i < 11; i++)
-        printfv("%c",buffer[i]);
+        printf("%c",buffer[i]);
 
-    printfv("\n");
+    printf("\n");
 
         if(!fat16_init())
     {
-        printfv("FAT init failed\n");
+        printf("FAT init failed\n");
         while(1);
     }
 
-    printfv("FAT ready\n");
+    printf("FAT ready\n");
 
     fat16_read_root();
     print("reading into fat");
@@ -81,7 +81,7 @@ void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
 
     uint16_t ss;
     __asm__("mov %%ss, %0" : "=r"(ss));
-    printfv("SS=%x\n", ss);
+    printf("SS=%x\n", ss);
     FAT16_DirEntry file;
 
     if(fat16_find("KERNEL.BIN", &file))
@@ -90,7 +90,7 @@ void __attribute__((cdecl)) start(uint16_t bootDrive,BootInfo* bootInfo)
 
         uint32_t esp;
         __asm__("mov %%esp, %0":"=r"(esp));
-        printfv("esp before jump = %x\n", esp);
+        printf("esp before jump = %x\n", esp);
         print("Wait 2 seconds for kernel to load..");
         sleep(2000);
 

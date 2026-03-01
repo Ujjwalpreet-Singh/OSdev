@@ -1,9 +1,3 @@
-Archive member included to satisfy reference by file (symbol)
-
-/home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
-                              /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj (__udivdi3)
-/home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
-                              /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj (__umoddi3)
 
 There are no discarded input sections
 
@@ -15,26 +9,24 @@ Name             Origin             Length             Attributes
 Linker script and memory map
 
 LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/entry.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/gdt.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/idt.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/io.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/isr.obj
 LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/jump.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/drivers/gdt.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/drivers/idt.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/drivers/io.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/asm/drivers/isr.obj
 LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+LOAD /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
                 0x00000500                        phys = 0x500
                 0x00000500                        . = phys
@@ -46,619 +38,542 @@ LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
                 0x00000500                entry
                 0x00000700                BootInfo
 
-.text           0x00000740     0x4366
+.text           0x00000740     0x388c
                 0x00000740                        __text_start = .
  *(.text)
- .text          0x00000740       0x2c /home/Ythunder/Desktop/OSdev/build/stage2/asm/gdt.obj
-                0x00000740                GDT_Load
- *fill*         0x0000076c        0x4 
- .text          0x00000770        0xd /home/Ythunder/Desktop/OSdev/build/stage2/asm/idt.obj
-                0x00000770                IDT_Load
- *fill*         0x0000077d        0x3 
- .text          0x00000780       0x19 /home/Ythunder/Desktop/OSdev/build/stage2/asm/io.obj
-                0x00000780                outb
-                0x0000078b                inb
-                0x00000794                Panic
-                0x00000796                crash_me
- *fill*         0x00000799        0x7 
- .text          0x000007a0      0xa69 /home/Ythunder/Desktop/OSdev/build/stage2/asm/isr.obj
-                0x000007a0                ISR0
-                0x000007a9                ISR1
-                0x000007b2                ISR2
-                0x000007bb                ISR3
-                0x000007c4                ISR4
-                0x000007cd                ISR5
-                0x000007d6                ISR6
-                0x000007df                ISR7
-                0x000007e8                ISR8
-                0x000007ef                ISR9
-                0x000007f8                ISR10
-                0x000007ff                ISR11
-                0x00000806                ISR12
-                0x0000080d                ISR13
-                0x00000814                ISR14
-                0x0000081b                ISR15
-                0x00000824                ISR16
-                0x0000082d                ISR17
-                0x00000834                ISR18
-                0x0000083d                ISR19
-                0x00000846                ISR20
-                0x0000084f                ISR21
-                0x00000856                ISR22
-                0x0000085f                ISR23
-                0x00000868                ISR24
-                0x00000871                ISR25
-                0x0000087a                ISR26
-                0x00000883                ISR27
-                0x0000088c                ISR28
-                0x00000895                ISR29
-                0x0000089c                ISR30
-                0x000008a3                ISR31
-                0x000008ac                ISR32
-                0x000008b5                ISR33
-                0x000008be                ISR34
-                0x000008c7                ISR35
-                0x000008d0                ISR36
-                0x000008d9                ISR37
-                0x000008e2                ISR38
-                0x000008eb                ISR39
-                0x000008f4                ISR40
-                0x000008fd                ISR41
-                0x00000906                ISR42
-                0x0000090f                ISR43
-                0x00000918                ISR44
-                0x00000921                ISR45
-                0x0000092a                ISR46
-                0x00000933                ISR47
-                0x0000093c                ISR48
-                0x00000945                ISR49
-                0x0000094e                ISR50
-                0x00000957                ISR51
-                0x00000960                ISR52
-                0x00000969                ISR53
-                0x00000972                ISR54
-                0x0000097b                ISR55
-                0x00000984                ISR56
-                0x0000098d                ISR57
-                0x00000996                ISR58
-                0x0000099f                ISR59
-                0x000009a8                ISR60
-                0x000009b1                ISR61
-                0x000009ba                ISR62
-                0x000009c3                ISR63
-                0x000009cc                ISR64
-                0x000009d5                ISR65
-                0x000009de                ISR66
-                0x000009e7                ISR67
-                0x000009f0                ISR68
-                0x000009f9                ISR69
-                0x00000a02                ISR70
-                0x00000a0b                ISR71
-                0x00000a14                ISR72
-                0x00000a1d                ISR73
-                0x00000a26                ISR74
-                0x00000a2f                ISR75
-                0x00000a38                ISR76
-                0x00000a41                ISR77
-                0x00000a4a                ISR78
-                0x00000a53                ISR79
-                0x00000a5c                ISR80
-                0x00000a65                ISR81
-                0x00000a6e                ISR82
-                0x00000a77                ISR83
-                0x00000a80                ISR84
-                0x00000a89                ISR85
-                0x00000a92                ISR86
-                0x00000a9b                ISR87
-                0x00000aa4                ISR88
-                0x00000aad                ISR89
-                0x00000ab6                ISR90
-                0x00000abf                ISR91
-                0x00000ac8                ISR92
-                0x00000ad1                ISR93
-                0x00000ada                ISR94
-                0x00000ae3                ISR95
-                0x00000aec                ISR96
-                0x00000af5                ISR97
-                0x00000afe                ISR98
-                0x00000b07                ISR99
-                0x00000b10                ISR100
-                0x00000b19                ISR101
-                0x00000b22                ISR102
-                0x00000b2b                ISR103
-                0x00000b34                ISR104
-                0x00000b3d                ISR105
-                0x00000b46                ISR106
-                0x00000b4f                ISR107
-                0x00000b58                ISR108
-                0x00000b61                ISR109
-                0x00000b6a                ISR110
-                0x00000b73                ISR111
-                0x00000b7c                ISR112
-                0x00000b85                ISR113
-                0x00000b8e                ISR114
-                0x00000b97                ISR115
-                0x00000ba0                ISR116
-                0x00000ba9                ISR117
-                0x00000bb2                ISR118
-                0x00000bbb                ISR119
-                0x00000bc4                ISR120
-                0x00000bcd                ISR121
-                0x00000bd6                ISR122
-                0x00000bdf                ISR123
-                0x00000be8                ISR124
-                0x00000bf1                ISR125
-                0x00000bfa                ISR126
-                0x00000c03                ISR127
-                0x00000c0c                ISR128
-                0x00000c18                ISR129
-                0x00000c24                ISR130
-                0x00000c30                ISR131
-                0x00000c3c                ISR132
-                0x00000c48                ISR133
-                0x00000c54                ISR134
-                0x00000c60                ISR135
-                0x00000c6c                ISR136
-                0x00000c78                ISR137
-                0x00000c84                ISR138
-                0x00000c90                ISR139
-                0x00000c9c                ISR140
-                0x00000ca8                ISR141
-                0x00000cb4                ISR142
-                0x00000cc0                ISR143
-                0x00000ccc                ISR144
-                0x00000cd8                ISR145
-                0x00000ce4                ISR146
-                0x00000cf0                ISR147
-                0x00000cfc                ISR148
-                0x00000d08                ISR149
-                0x00000d14                ISR150
-                0x00000d20                ISR151
-                0x00000d2c                ISR152
-                0x00000d38                ISR153
-                0x00000d44                ISR154
-                0x00000d50                ISR155
-                0x00000d5c                ISR156
-                0x00000d68                ISR157
-                0x00000d74                ISR158
-                0x00000d80                ISR159
-                0x00000d8c                ISR160
-                0x00000d98                ISR161
-                0x00000da4                ISR162
-                0x00000db0                ISR163
-                0x00000dbc                ISR164
-                0x00000dc8                ISR165
-                0x00000dd4                ISR166
-                0x00000de0                ISR167
-                0x00000dec                ISR168
-                0x00000df8                ISR169
-                0x00000e04                ISR170
-                0x00000e10                ISR171
-                0x00000e1c                ISR172
-                0x00000e28                ISR173
-                0x00000e34                ISR174
-                0x00000e40                ISR175
-                0x00000e4c                ISR176
-                0x00000e58                ISR177
-                0x00000e64                ISR178
-                0x00000e70                ISR179
-                0x00000e7c                ISR180
-                0x00000e88                ISR181
-                0x00000e94                ISR182
-                0x00000ea0                ISR183
-                0x00000eac                ISR184
-                0x00000eb8                ISR185
-                0x00000ec4                ISR186
-                0x00000ed0                ISR187
-                0x00000edc                ISR188
-                0x00000ee8                ISR189
-                0x00000ef4                ISR190
-                0x00000f00                ISR191
-                0x00000f0c                ISR192
-                0x00000f18                ISR193
-                0x00000f24                ISR194
-                0x00000f30                ISR195
-                0x00000f3c                ISR196
-                0x00000f48                ISR197
-                0x00000f54                ISR198
-                0x00000f60                ISR199
-                0x00000f6c                ISR200
-                0x00000f78                ISR201
-                0x00000f84                ISR202
-                0x00000f90                ISR203
-                0x00000f9c                ISR204
-                0x00000fa8                ISR205
-                0x00000fb4                ISR206
-                0x00000fc0                ISR207
-                0x00000fcc                ISR208
-                0x00000fd8                ISR209
-                0x00000fe4                ISR210
-                0x00000ff0                ISR211
-                0x00000ffc                ISR212
-                0x00001008                ISR213
-                0x00001014                ISR214
-                0x00001020                ISR215
-                0x0000102c                ISR216
-                0x00001038                ISR217
-                0x00001044                ISR218
-                0x00001050                ISR219
-                0x0000105c                ISR220
-                0x00001068                ISR221
-                0x00001074                ISR222
-                0x00001080                ISR223
-                0x0000108c                ISR224
-                0x00001098                ISR225
-                0x000010a4                ISR226
-                0x000010b0                ISR227
-                0x000010bc                ISR228
-                0x000010c8                ISR229
-                0x000010d4                ISR230
-                0x000010e0                ISR231
-                0x000010ec                ISR232
-                0x000010f8                ISR233
-                0x00001104                ISR234
-                0x00001110                ISR235
-                0x0000111c                ISR236
-                0x00001128                ISR237
-                0x00001134                ISR238
-                0x00001140                ISR239
-                0x0000114c                ISR240
-                0x00001158                ISR241
-                0x00001161                ISR242
-                0x0000116a                ISR243
-                0x00001173                ISR244
-                0x0000117c                ISR245
-                0x00001185                ISR246
-                0x0000118e                ISR247
-                0x00001197                ISR248
-                0x000011a0                ISR249
-                0x000011a9                ISR250
-                0x000011b2                ISR251
-                0x000011bb                ISR252
-                0x000011c4                ISR253
-                0x000011cd                ISR254
-                0x000011d6                ISR255
- *fill*         0x00001209        0x7 
- .text          0x00001210       0x19 /home/Ythunder/Desktop/OSdev/build/stage2/asm/jump.obj
-                0x00001210                jump_to_kernel
- *fill*         0x00001229        0x7 
- .text          0x00001230       0x4c /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
-                0x00001230                x86_Video_WriteCharTeletype
-                0x00001259                x86_Video_ClearScreen
- .text          0x0000127c      0x1cc /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
-                0x000012d7                ata_init
-                0x0000131a                ata_read28
- .text          0x00001448      0x706 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
-                0x00001448                fat16_init
-                0x00001639                fat16_read_root
-                0x0000168b                fat16_list
-                0x00001853                fat16_find
-                0x000019e0                fat16_read_fat
-                0x00001a7e                fat16_read_file
- .text          0x00001b4e        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
- .text          0x00001b4e      0x1ca /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
-                0x00001b4e                framebuffer_init
-                0x00001b97                putpixel
-                0x00001bbe                clear
-                0x00001c1b                scroll
-                0x00001d04                fb_get_width
-                0x00001d0e                fb_get_height
- .text          0x00001d18       0x1d /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
-                0x00001d18                GDT_Initialize
- .text          0x00001d35       0xba /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
-                0x00001d35                IDT_SetGate
-                0x00001d96                IDT_EnableGate
-                0x00001db6                IDT_DisableGate
-                0x00001dd6                IDT_Initialize
- .text          0x00001def      0x1a1 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
-                0x00001def                ISR_Initialize
-                0x00001e31                ISR_Handler
-                0x00001f6c                ISR_RegisterHandler
- .text          0x00001f90     0x1489 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
-                0x00001f90                ISR_InitializeGates
- .text          0x00003419      0x296 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
-                0x00003419                start
-                0x00003667                read_cr0
-                0x00003678                check_protected_mode
- .text          0x000036af       0xdc /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
-                0x000036af                PIC_Remap
- .text          0x0000378b      0x229 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
-                0x0000378b                oguriprint
- .text          0x000039b4      0x4cb /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
-                0x000039b4                psf_init
-                0x000039e7                draw_char
-                0x00003a7f                print
-                0x00003d1c                printfv
- .text          0x00003e7f      0x915 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x00003e7f                putchr
-                0x00003eae                putcolor
-                0x00003ee0                getchr
-                0x00003f02                getcolor
-                0x00003f27                setcursor
-                0x00003f98                clrscr
-                0x00004026                scrollback
-                0x00004114                putc
-                0x00004224                puts
-                0x00004253                printf_unsigned
-                0x000042f7                printf_signed
-                0x00004354                printf
-                0x000046fb                print_buffer
- .text          0x00004794       0xb5 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
-                0x000047b9                PIT_init
-                0x0000481e                sleep
- *fill*         0x00004849        0x7 
- .text          0x00004850      0x11a /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
-                0x00004850                __udivdi3
- *fill*         0x0000496a        0x6 
- .text          0x00004970      0x136 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
-                0x00004970                __umoddi3
+ .text          0x00000740       0x19 /home/Ythunder/Desktop/OSdev/build/stage2/asm/jump.obj
+                0x00000740                jump_to_kernel
+ *fill*         0x00000759        0x7 
+ .text          0x00000760       0x2c /home/Ythunder/Desktop/OSdev/build/stage2/asm/drivers/gdt.obj
+                0x00000760                GDT_Load
+ *fill*         0x0000078c        0x4 
+ .text          0x00000790        0xd /home/Ythunder/Desktop/OSdev/build/stage2/asm/drivers/idt.obj
+                0x00000790                IDT_Load
+ *fill*         0x0000079d        0x3 
+ .text          0x000007a0       0x19 /home/Ythunder/Desktop/OSdev/build/stage2/asm/drivers/io.obj
+                0x000007a0                outb
+                0x000007ab                inb
+                0x000007b4                Panic
+                0x000007b6                crash_me
+ *fill*         0x000007b9        0x7 
+ .text          0x000007c0      0xa69 /home/Ythunder/Desktop/OSdev/build/stage2/asm/drivers/isr.obj
+                0x000007c0                ISR0
+                0x000007c9                ISR1
+                0x000007d2                ISR2
+                0x000007db                ISR3
+                0x000007e4                ISR4
+                0x000007ed                ISR5
+                0x000007f6                ISR6
+                0x000007ff                ISR7
+                0x00000808                ISR8
+                0x0000080f                ISR9
+                0x00000818                ISR10
+                0x0000081f                ISR11
+                0x00000826                ISR12
+                0x0000082d                ISR13
+                0x00000834                ISR14
+                0x0000083b                ISR15
+                0x00000844                ISR16
+                0x0000084d                ISR17
+                0x00000854                ISR18
+                0x0000085d                ISR19
+                0x00000866                ISR20
+                0x0000086f                ISR21
+                0x00000876                ISR22
+                0x0000087f                ISR23
+                0x00000888                ISR24
+                0x00000891                ISR25
+                0x0000089a                ISR26
+                0x000008a3                ISR27
+                0x000008ac                ISR28
+                0x000008b5                ISR29
+                0x000008bc                ISR30
+                0x000008c3                ISR31
+                0x000008cc                ISR32
+                0x000008d5                ISR33
+                0x000008de                ISR34
+                0x000008e7                ISR35
+                0x000008f0                ISR36
+                0x000008f9                ISR37
+                0x00000902                ISR38
+                0x0000090b                ISR39
+                0x00000914                ISR40
+                0x0000091d                ISR41
+                0x00000926                ISR42
+                0x0000092f                ISR43
+                0x00000938                ISR44
+                0x00000941                ISR45
+                0x0000094a                ISR46
+                0x00000953                ISR47
+                0x0000095c                ISR48
+                0x00000965                ISR49
+                0x0000096e                ISR50
+                0x00000977                ISR51
+                0x00000980                ISR52
+                0x00000989                ISR53
+                0x00000992                ISR54
+                0x0000099b                ISR55
+                0x000009a4                ISR56
+                0x000009ad                ISR57
+                0x000009b6                ISR58
+                0x000009bf                ISR59
+                0x000009c8                ISR60
+                0x000009d1                ISR61
+                0x000009da                ISR62
+                0x000009e3                ISR63
+                0x000009ec                ISR64
+                0x000009f5                ISR65
+                0x000009fe                ISR66
+                0x00000a07                ISR67
+                0x00000a10                ISR68
+                0x00000a19                ISR69
+                0x00000a22                ISR70
+                0x00000a2b                ISR71
+                0x00000a34                ISR72
+                0x00000a3d                ISR73
+                0x00000a46                ISR74
+                0x00000a4f                ISR75
+                0x00000a58                ISR76
+                0x00000a61                ISR77
+                0x00000a6a                ISR78
+                0x00000a73                ISR79
+                0x00000a7c                ISR80
+                0x00000a85                ISR81
+                0x00000a8e                ISR82
+                0x00000a97                ISR83
+                0x00000aa0                ISR84
+                0x00000aa9                ISR85
+                0x00000ab2                ISR86
+                0x00000abb                ISR87
+                0x00000ac4                ISR88
+                0x00000acd                ISR89
+                0x00000ad6                ISR90
+                0x00000adf                ISR91
+                0x00000ae8                ISR92
+                0x00000af1                ISR93
+                0x00000afa                ISR94
+                0x00000b03                ISR95
+                0x00000b0c                ISR96
+                0x00000b15                ISR97
+                0x00000b1e                ISR98
+                0x00000b27                ISR99
+                0x00000b30                ISR100
+                0x00000b39                ISR101
+                0x00000b42                ISR102
+                0x00000b4b                ISR103
+                0x00000b54                ISR104
+                0x00000b5d                ISR105
+                0x00000b66                ISR106
+                0x00000b6f                ISR107
+                0x00000b78                ISR108
+                0x00000b81                ISR109
+                0x00000b8a                ISR110
+                0x00000b93                ISR111
+                0x00000b9c                ISR112
+                0x00000ba5                ISR113
+                0x00000bae                ISR114
+                0x00000bb7                ISR115
+                0x00000bc0                ISR116
+                0x00000bc9                ISR117
+                0x00000bd2                ISR118
+                0x00000bdb                ISR119
+                0x00000be4                ISR120
+                0x00000bed                ISR121
+                0x00000bf6                ISR122
+                0x00000bff                ISR123
+                0x00000c08                ISR124
+                0x00000c11                ISR125
+                0x00000c1a                ISR126
+                0x00000c23                ISR127
+                0x00000c2c                ISR128
+                0x00000c38                ISR129
+                0x00000c44                ISR130
+                0x00000c50                ISR131
+                0x00000c5c                ISR132
+                0x00000c68                ISR133
+                0x00000c74                ISR134
+                0x00000c80                ISR135
+                0x00000c8c                ISR136
+                0x00000c98                ISR137
+                0x00000ca4                ISR138
+                0x00000cb0                ISR139
+                0x00000cbc                ISR140
+                0x00000cc8                ISR141
+                0x00000cd4                ISR142
+                0x00000ce0                ISR143
+                0x00000cec                ISR144
+                0x00000cf8                ISR145
+                0x00000d04                ISR146
+                0x00000d10                ISR147
+                0x00000d1c                ISR148
+                0x00000d28                ISR149
+                0x00000d34                ISR150
+                0x00000d40                ISR151
+                0x00000d4c                ISR152
+                0x00000d58                ISR153
+                0x00000d64                ISR154
+                0x00000d70                ISR155
+                0x00000d7c                ISR156
+                0x00000d88                ISR157
+                0x00000d94                ISR158
+                0x00000da0                ISR159
+                0x00000dac                ISR160
+                0x00000db8                ISR161
+                0x00000dc4                ISR162
+                0x00000dd0                ISR163
+                0x00000ddc                ISR164
+                0x00000de8                ISR165
+                0x00000df4                ISR166
+                0x00000e00                ISR167
+                0x00000e0c                ISR168
+                0x00000e18                ISR169
+                0x00000e24                ISR170
+                0x00000e30                ISR171
+                0x00000e3c                ISR172
+                0x00000e48                ISR173
+                0x00000e54                ISR174
+                0x00000e60                ISR175
+                0x00000e6c                ISR176
+                0x00000e78                ISR177
+                0x00000e84                ISR178
+                0x00000e90                ISR179
+                0x00000e9c                ISR180
+                0x00000ea8                ISR181
+                0x00000eb4                ISR182
+                0x00000ec0                ISR183
+                0x00000ecc                ISR184
+                0x00000ed8                ISR185
+                0x00000ee4                ISR186
+                0x00000ef0                ISR187
+                0x00000efc                ISR188
+                0x00000f08                ISR189
+                0x00000f14                ISR190
+                0x00000f20                ISR191
+                0x00000f2c                ISR192
+                0x00000f38                ISR193
+                0x00000f44                ISR194
+                0x00000f50                ISR195
+                0x00000f5c                ISR196
+                0x00000f68                ISR197
+                0x00000f74                ISR198
+                0x00000f80                ISR199
+                0x00000f8c                ISR200
+                0x00000f98                ISR201
+                0x00000fa4                ISR202
+                0x00000fb0                ISR203
+                0x00000fbc                ISR204
+                0x00000fc8                ISR205
+                0x00000fd4                ISR206
+                0x00000fe0                ISR207
+                0x00000fec                ISR208
+                0x00000ff8                ISR209
+                0x00001004                ISR210
+                0x00001010                ISR211
+                0x0000101c                ISR212
+                0x00001028                ISR213
+                0x00001034                ISR214
+                0x00001040                ISR215
+                0x0000104c                ISR216
+                0x00001058                ISR217
+                0x00001064                ISR218
+                0x00001070                ISR219
+                0x0000107c                ISR220
+                0x00001088                ISR221
+                0x00001094                ISR222
+                0x000010a0                ISR223
+                0x000010ac                ISR224
+                0x000010b8                ISR225
+                0x000010c4                ISR226
+                0x000010d0                ISR227
+                0x000010dc                ISR228
+                0x000010e8                ISR229
+                0x000010f4                ISR230
+                0x00001100                ISR231
+                0x0000110c                ISR232
+                0x00001118                ISR233
+                0x00001124                ISR234
+                0x00001130                ISR235
+                0x0000113c                ISR236
+                0x00001148                ISR237
+                0x00001154                ISR238
+                0x00001160                ISR239
+                0x0000116c                ISR240
+                0x00001178                ISR241
+                0x00001181                ISR242
+                0x0000118a                ISR243
+                0x00001193                ISR244
+                0x0000119c                ISR245
+                0x000011a5                ISR246
+                0x000011ae                ISR247
+                0x000011b7                ISR248
+                0x000011c0                ISR249
+                0x000011c9                ISR250
+                0x000011d2                ISR251
+                0x000011db                ISR252
+                0x000011e4                ISR253
+                0x000011ed                ISR254
+                0x000011f6                ISR255
+ .text          0x00001229      0x28c /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+                0x00001229                start
+                0x0000146d                read_cr0
+                0x0000147e                check_protected_mode
+ .text          0x000014b5      0x1cc /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+                0x00001510                ata_init
+                0x00001553                ata_read28
+ .text          0x00001681      0x706 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+                0x00001681                fat16_init
+                0x00001872                fat16_read_root
+                0x000018c4                fat16_list
+                0x00001a8c                fat16_find
+                0x00001c19                fat16_read_fat
+                0x00001cb7                fat16_read_file
+ .text          0x00001d87       0x1d /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+                0x00001d87                GDT_Initialize
+ .text          0x00001da4       0xba /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+                0x00001da4                IDT_SetGate
+                0x00001e05                IDT_EnableGate
+                0x00001e25                IDT_DisableGate
+                0x00001e45                IDT_Initialize
+ .text          0x00001e5e      0x1a1 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+                0x00001e5e                ISR_Initialize
+                0x00001ea0                ISR_Handler
+                0x00001fdb                ISR_RegisterHandler
+ .text          0x00001fff     0x1489 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+                0x00001fff                ISR_InitializeGates
+ .text          0x00003488        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
+ .text          0x00003488      0x1ca /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+                0x00003488                framebuffer_init
+                0x000034d1                putpixel
+                0x000034f8                clear
+                0x00003555                scroll
+                0x0000363e                fb_get_width
+                0x00003648                fb_get_height
+ .text          0x00003652       0xdc /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+                0x00003652                PIC_Remap
+ .text          0x0000372e      0x229 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+                0x0000372e                oguriprint
+ .text          0x00003957      0x5c0 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+                0x00003957                psf_init
+                0x0000398a                draw_char
+                0x00003a22                print
+                0x00003b1a                print_char
+                0x00003b43                print_string
+                0x00003b67                print_uint
+                0x00003bfc                print_int
+                0x00003c2a                print_hex
+                0x00003cbf                printf
+                0x00003e22                print_buffer
+ .text          0x00003f17       0xb5 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
+                0x00003f3c                PIT_init
+                0x00003fa1                sleep
 
-.data           0x00004ac0     0x13f8
-                0x00004ac0                        __data_start = .
+.data           0x00003fe0     0x13ec
+                0x00003fe0                        __data_start = .
  *(.data)
- .data          0x00004ac0        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/asm/x86.obj
- .data          0x00004ac4        0x1 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- *fill*         0x00004ac5        0x3 
- .data          0x00004ac8        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- *fill*         0x00004ad0       0x10 
- .data          0x00004ae0     0x13a4 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
-                0x00004ae0                font_psf
-                0x00005e80                _usr_share_kbd_consolefonts_Lat2_Terminus16_psfu_len
- .data          0x00005e84        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .data          0x00005e84       0x1e /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
-                0x00005e84                g_GDT
-                0x00005e9c                g_GDTDescriptor
- *fill*         0x00005ea2        0x2 
- .data          0x00005ea4        0x6 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
-                0x00005ea4                g_IDTDescriptor
- .data          0x00005eaa        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- .data          0x00005eaa        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .data          0x00005eaa        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .data          0x00005eaa        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
- .data          0x00005eaa        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
- *fill*         0x00005eaa        0x2 
- .data          0x00005eac        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .data          0x00005eb4        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x00005eb4                g_ScreenBuffer
- .data          0x00005eb8        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
- .data          0x00005eb8        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .data          0x00005eb8        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+ .data          0x00003fe0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .data          0x00003fe0        0x1 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+ *fill*         0x00003fe1        0x3 
+ .data          0x00003fe4        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+ .data          0x00003fec       0x1e /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+                0x00003fec                g_GDT
+                0x00004004                g_GDTDescriptor
+ *fill*         0x0000400a        0x2 
+ .data          0x0000400c        0x6 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+                0x0000400c                g_IDTDescriptor
+ .data          0x00004012        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+ .data          0x00004012        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+ *fill*         0x00004012        0xe 
+ .data          0x00004020     0x13a4 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
+                0x00004020                font_psf
+                0x000053c0                _usr_share_kbd_consolefonts_Lat2_Terminus16_psfu_len
+ .data          0x000053c4        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+ .data          0x000053c4        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+ .data          0x000053c4        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+ .data          0x000053c4        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+ .data          0x000053cc        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 
-.rodata         0x00005ec0     0x10bf
-                0x00005ec0                        __rodata_start = .
+.rodata         0x000053e0     0x109b
+                0x000053e0                        __rodata_start = .
  *(.rodata)
- .rodata        0x00005ec0      0x179 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- *fill*         0x00006039        0x7 
- .rodata        0x00006040      0x34f /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- *fill*         0x0000638f        0x1 
- .rodata        0x00006390      0x128 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .rodata        0x000064b8      0xa9d /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
- .rodata        0x00006f55        0xa /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- *fill*         0x00006f5f        0x1 
- .rodata        0x00006f60       0x1f /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x00006f60                SCREEN_WIDTH
-                0x00006f64                SCREEN_HEIGHT
-                0x00006f68                DEFAULT_COLOR
-                0x00006f6c                g_HexChars
+ .rodata        0x000053e0      0x11f /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ *fill*         0x000054ff        0x1 
+ .rodata        0x00005500      0x179 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+ *fill*         0x00005679        0x7 
+ .rodata        0x00005680      0x34f /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+ *fill*         0x000059cf        0x1 
+ .rodata        0x000059d0      0xa9d /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+ .rodata        0x0000646d        0xe /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
 
-.eh_frame       0x00006f80       0xd8
- .eh_frame      0x00006f80       0x64 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .eh_frame      0x00006fe4       0x74 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
-
-.bss            0x00007060      0xc78
-                0x00007060                        __bss_start = .
+.bss            0x00006480      0xc64
+                0x00006480                        __bss_start = .
  *(.bss)
- .bss           0x00007060        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- .bss           0x00007060       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- .bss           0x00007094        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
- .bss           0x00007094       0x14 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .bss           0x000070a8        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
- *fill*         0x000070a8       0x18 
- .bss           0x000070c0      0x800 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
-                0x000070c0                g_IDT
- .bss           0x000078c0      0x400 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
-                0x000078c0                g_ISRHandlers
- .bss           0x00007cc0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .bss           0x00007cc0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .bss           0x00007cc0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
- .bss           0x00007cc0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
- .bss           0x00007cc0        0xc /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .bss           0x00007ccc        0x8 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
-                0x00007ccc                g_ScreenX
-                0x00007cd0                g_ScreenY
- .bss           0x00007cd4        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
-                0x00007cd4                g_ticks
- .bss           0x00007cd8        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .bss           0x00007cd8        0x0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
-                0x00007cd8                        __end = .
+ .bss           0x00006480        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .bss           0x00006480        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+ .bss           0x00006480       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+ .bss           0x000064b4        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+ *fill*         0x000064b4        0xc 
+ .bss           0x000064c0      0x800 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+                0x000064c0                g_IDT
+ .bss           0x00006cc0      0x400 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+                0x00006cc0                g_ISRHandlers
+ .bss           0x000070c0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+ .bss           0x000070c0        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
+ .bss           0x000070c0       0x14 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+ .bss           0x000070d4        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+ .bss           0x000070d4        0x0 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+ .bss           0x000070d4        0xc /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+ .bss           0x000070e0        0x4 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
+                0x000070e0                g_ticks
+                0x000070e4                        __end = .
 OUTPUT(/home/Ythunder/Desktop/OSdev/build/stage2.bin binary)
 
-.debug_info     0x00000000     0x36ab
- .debug_info    0x00000000      0x21c /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- .debug_info    0x0000021c      0x5b9 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- .debug_info    0x000007d5       0x9b /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
- .debug_info    0x00000870      0x29c /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .debug_info    0x00000b0c      0x1fa /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
- .debug_info    0x00000d06      0x24e /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
- .debug_info    0x00000f54      0x29c /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- .debug_info    0x000011f0      0xd09 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .debug_info    0x00001ef9      0x442 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_info    0x0000233b       0xdd /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
- .debug_info    0x00002418       0xa3 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
- .debug_info    0x000024bb      0x3c1 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_info    0x0000287c      0x54c /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_info    0x00002dc8      0x262 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
- .debug_info    0x0000302a      0x331 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_info    0x0000335b      0x350 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+.debug_info     0x00000000     0x2b92
+ .debug_info    0x00000000      0x431 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_info    0x00000431      0x21c /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+ .debug_info    0x0000064d      0x5b9 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+ .debug_info    0x00000c06      0x1fa /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+ .debug_info    0x00000e00      0x24e /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+ .debug_info    0x0000104e      0x29c /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+ .debug_info    0x000012ea      0xd09 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+ .debug_info    0x00001ff3       0x9b /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
+ .debug_info    0x0000208e      0x29c /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+ .debug_info    0x0000232a       0xdd /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+ .debug_info    0x00002407       0xa3 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+ .debug_info    0x000024aa      0x486 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+ .debug_info    0x00002930      0x262 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 
-.debug_abbrev   0x00000000     0x12e3
- .debug_abbrev  0x00000000      0x122 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- .debug_abbrev  0x00000122      0x1eb /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- .debug_abbrev  0x0000030d       0x5e /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
- .debug_abbrev  0x0000036b      0x124 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .debug_abbrev  0x0000048f       0xf0 /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
- .debug_abbrev  0x0000057f      0x122 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
- .debug_abbrev  0x000006a1      0x150 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- .debug_abbrev  0x000007f1       0xbf /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .debug_abbrev  0x000008b0      0x1c3 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_abbrev  0x00000a73       0x97 /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
- .debug_abbrev  0x00000b0a       0x6d /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
- .debug_abbrev  0x00000b77      0x167 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_abbrev  0x00000cde      0x1f6 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_abbrev  0x00000ed4      0x145 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
- .debug_abbrev  0x00001019      0x15a /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_abbrev  0x00001173      0x170 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+.debug_abbrev   0x00000000      0xe06
+ .debug_abbrev  0x00000000      0x1bc /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_abbrev  0x000001bc      0x122 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+ .debug_abbrev  0x000002de      0x1eb /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+ .debug_abbrev  0x000004c9       0xf0 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+ .debug_abbrev  0x000005b9      0x122 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+ .debug_abbrev  0x000006db      0x150 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+ .debug_abbrev  0x0000082b       0xbf /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+ .debug_abbrev  0x000008ea       0x5e /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
+ .debug_abbrev  0x00000948      0x124 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+ .debug_abbrev  0x00000a6c       0x97 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+ .debug_abbrev  0x00000b03       0x6d /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+ .debug_abbrev  0x00000b70      0x151 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+ .debug_abbrev  0x00000cc1      0x145 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 
-.debug_aranges  0x00000000      0x1f8
+.debug_aranges  0x00000000      0x198
  .debug_aranges
-                0x00000000       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
+                0x00000000       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
  .debug_aranges
-                0x00000020       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
+                0x00000020       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
  .debug_aranges
-                0x00000040       0x18 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
+                0x00000040       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
  .debug_aranges
-                0x00000058       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
+                0x00000060       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
  .debug_aranges
-                0x00000078       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
+                0x00000080       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
  .debug_aranges
-                0x00000098       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
+                0x000000a0       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
  .debug_aranges
-                0x000000b8       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
+                0x000000c0       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
  .debug_aranges
-                0x000000d8       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
+                0x000000e0       0x18 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
  .debug_aranges
-                0x000000f8       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+                0x000000f8       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
  .debug_aranges
-                0x00000118       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
+                0x00000118       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
  .debug_aranges
-                0x00000138       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+                0x00000138       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
  .debug_aranges
-                0x00000158       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+                0x00000158       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
  .debug_aranges
-                0x00000178       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_aranges
-                0x00000198       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
- .debug_aranges
-                0x000001b8       0x20 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_aranges
-                0x000001d8       0x20 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+                0x00000178       0x20 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 
-.debug_line     0x00000000     0x1590
- .debug_line    0x00000000      0x10e /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- .debug_line    0x0000010e      0x31f /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- .debug_line    0x0000042d       0x36 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
- .debug_line    0x00000463      0x165 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .debug_line    0x000005c8       0x58 /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
- .debug_line    0x00000620       0x85 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
- .debug_line    0x000006a5       0xd0 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- .debug_line    0x00000775      0x25b /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .debug_line    0x000009d0      0x13e /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_line    0x00000b0e       0x72 /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
- .debug_line    0x00000b80       0x71 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
- .debug_line    0x00000bf1      0x211 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_line    0x00000e02      0x3ad /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_line    0x000011af       0x96 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
- .debug_line    0x00001245      0x17b /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_line    0x000013c0      0x1d0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+.debug_line     0x00000000      0xf55
+ .debug_line    0x00000000      0x14b /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_line    0x0000014b      0x112 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+ .debug_line    0x0000025d      0x327 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+ .debug_line    0x00000584       0x5c /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+ .debug_line    0x000005e0       0x89 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+ .debug_line    0x00000669       0xd8 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+ .debug_line    0x00000741      0x25f /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+ .debug_line    0x000009a0       0x3a /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
+ .debug_line    0x000009da      0x169 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+ .debug_line    0x00000b43       0x7a /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+ .debug_line    0x00000bbd       0x75 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+ .debug_line    0x00000c32      0x285 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+ .debug_line    0x00000eb7       0x9e /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 
-.debug_str      0x00000000     0x2521
- .debug_str     0x00000000      0x140 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- .debug_str     0x00000140      0x36f /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- .debug_str     0x000004af      0x10d /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
- .debug_str     0x000005bc      0x17f /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .debug_str     0x0000073b      0x2f0 /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
- .debug_str     0x00000a2b      0x278 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
- .debug_str     0x00000ca3      0x1a8 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- .debug_str     0x00000e4b      0x854 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .debug_str     0x0000169f      0x2ef /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_str     0x0000198e       0xfb /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
- .debug_str     0x00001a89       0xe5 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
- .debug_str     0x00001b6e      0x1f5 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_str     0x00001d63      0x24a /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_str     0x00001fad      0x17a /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
- .debug_str     0x00002127      0x1fd /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_str     0x00002324      0x1fd /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+.debug_str      0x00000000     0x1f07
+ .debug_str     0x00000000      0x2e6 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_str     0x000002e6      0x140 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+ .debug_str     0x00000426      0x375 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+ .debug_str     0x0000079b      0x2f0 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+ .debug_str     0x00000a8b      0x278 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+ .debug_str     0x00000d03      0x1a8 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+ .debug_str     0x00000eab      0x854 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+ .debug_str     0x000016ff      0x10d /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
+ .debug_str     0x0000180c      0x17f /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+ .debug_str     0x0000198b       0xfb /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+ .debug_str     0x00001a86       0xe5 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+ .debug_str     0x00001b6b      0x222 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+ .debug_str     0x00001d8d      0x17a /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 
 .debug_line_str
-                0x00000000      0xd59
+                0x00000000      0xc3b
  .debug_line_str
-                0x00000000       0xcd /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
+                0x00000000      0x142 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
  .debug_line_str
-                0x000000cd       0xe1 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
+                0x00000142       0xd7 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
  .debug_line_str
-                0x000001ae       0x7b /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
+                0x00000219       0xfe /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
  .debug_line_str
-                0x00000229       0xf0 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
+                0x00000317       0xdd /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
  .debug_line_str
-                0x00000319       0xcd /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
+                0x000003f4       0xe3 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
  .debug_line_str
-                0x000003e6       0xd3 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
+                0x000004d7      0x10c /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
  .debug_line_str
-                0x000004b9       0xe6 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
+                0x000005e3       0xf2 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
  .debug_line_str
-                0x0000059f       0xe2 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
+                0x000006d5       0x95 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
  .debug_line_str
-                0x00000681      0x128 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+                0x0000076a      0x10a /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
  .debug_line_str
-                0x000007a9       0xd2 /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
+                0x00000874      0x104 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
  .debug_line_str
-                0x0000087b       0x93 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
+                0x00000978       0xad /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
  .debug_line_str
-                0x0000090e       0xe4 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
+                0x00000a25       0xfe /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
  .debug_line_str
-                0x000009f2       0xe1 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_line_str
-                0x00000ad3       0xe6 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
- .debug_line_str
-                0x00000bb9       0xd0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_line_str
-                0x00000c89       0xd0 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+                0x00000b23      0x118 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 
-.comment        0x00000000      0x130
- .comment       0x00000000       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- .comment       0x00000013       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- .comment       0x00000026       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/font.obj
- .comment       0x00000039       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .comment       0x0000004c       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
- .comment       0x0000005f       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
- .comment       0x00000072       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- .comment       0x00000085       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .comment       0x00000098       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .comment       0x000000ab       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
- .comment       0x000000be       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
- .comment       0x000000d1       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .comment       0x000000e4       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .comment       0x000000f7       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
- .comment       0x0000010a       0x13 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .comment       0x0000011d       0x13 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+.comment        0x00000000       0xf7
+ .comment       0x00000000       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .comment       0x00000013       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+ .comment       0x00000026       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+ .comment       0x00000039       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+ .comment       0x0000004c       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+ .comment       0x0000005f       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+ .comment       0x00000072       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+ .comment       0x00000085       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/font.obj
+ .comment       0x00000098       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+ .comment       0x000000ab       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+ .comment       0x000000be       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+ .comment       0x000000d1       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+ .comment       0x000000e4       0x13 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 
-.debug_frame    0x00000000      0x89c
- .debug_frame   0x00000000       0xd8 /home/Ythunder/Desktop/OSdev/build/stage2/c/ata.obj
- .debug_frame   0x000000d8      0x114 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- .debug_frame   0x000001ec       0xd8 /home/Ythunder/Desktop/OSdev/build/stage2/c/framebuffer.obj
- .debug_frame   0x000002c4       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/gdt.obj
- .debug_frame   0x000002f8       0x94 /home/Ythunder/Desktop/OSdev/build/stage2/c/idt.obj
- .debug_frame   0x0000038c       0x80 /home/Ythunder/Desktop/OSdev/build/stage2/c/isr.obj
- .debug_frame   0x0000040c       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/isrs_gen.obj
- .debug_frame   0x00000440       0x6c /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
- .debug_frame   0x000004ac       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/pic.obj
- .debug_frame   0x000004e0       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/printoguri.obj
- .debug_frame   0x00000514      0x15c /home/Ythunder/Desktop/OSdev/build/stage2/c/psf.obj
- .debug_frame   0x00000670      0x1b8 /home/Ythunder/Desktop/OSdev/build/stage2/c/stdio.obj
- .debug_frame   0x00000828       0x74 /home/Ythunder/Desktop/OSdev/build/stage2/c/timer.obj
+.debug_frame    0x00000000      0x704
+ .debug_frame   0x00000000       0x6c /home/Ythunder/Desktop/OSdev/build/stage2/c/main.obj
+ .debug_frame   0x0000006c       0xd8 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/ata.obj
+ .debug_frame   0x00000144      0x114 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
+ .debug_frame   0x00000258       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/gdt.obj
+ .debug_frame   0x0000028c       0x94 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/idt.obj
+ .debug_frame   0x00000320       0x80 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isr.obj
+ .debug_frame   0x000003a0       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/drivers/isrs_gen.obj
+ .debug_frame   0x000003d4       0xd8 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/framebuffer.obj
+ .debug_frame   0x000004ac       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/pic.obj
+ .debug_frame   0x000004e0       0x34 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/printoguri.obj
+ .debug_frame   0x00000514      0x17c /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/psf.obj
+ .debug_frame   0x00000690       0x74 /home/Ythunder/Desktop/OSdev/build/stage2/c/input-output/timer.obj
 
 .debug_rnglists
-                0x00000000       0x60
+                0x00000000       0x17
  .debug_rnglists
-                0x00000000       0x17 /home/Ythunder/Desktop/OSdev/build/stage2/c/fat.obj
- .debug_rnglists
-                0x00000017       0x2a /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_rnglists
-                0x00000041       0x1f /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
-
-.debug_loclists
-                0x00000000      0x940
- .debug_loclists
-                0x00000000      0x4de /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_udivdi3.o)
- .debug_loclists
-                0x000004de      0x462 /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a(_umoddi3.o)
+                0x00000000       0x17 /home/Ythunder/Desktop/OSdev/build/stage2/c/disk/fat.obj
