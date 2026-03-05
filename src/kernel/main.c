@@ -23,4 +23,14 @@ void kmain(uint16_t bootDrive, BootInfo* bootInfo)
     }
 
     fat16_list();
+
+        FAT16_DirEntry file;
+
+    if(fat16_find_path("KERNEL.BIN", &file)){
+        print("KERNEL.BIN FOUND!");
+    }
+    if(fat16_find_path("USR/TEST.TXT", &file)){
+        print("TEST.TXT FOUND!");
+    }
 }
+

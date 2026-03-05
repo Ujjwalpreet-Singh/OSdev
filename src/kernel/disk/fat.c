@@ -15,6 +15,7 @@ static uint32_t root_dir_sectors;
 static FAT16_DirEntry* root = (FAT16_DirEntry*)ROOT_ADDR;
 static uint16_t* fat = (uint16_t*)FAT_ADDR;
 
+
 bool fat16_init()
 {
     uint8_t buffer[512];
@@ -70,26 +71,9 @@ bool fat16_read_root()
 
 void fat16_list()
 {
-    printf("Files:\n");
+    printf("\nFilesystem tree:\n");
 
-    for(int i=0;i<bpb.root_entry_count;i++)
-    {
-        if(root[i].name[0] == 0)
-            break;
-
-        if(root[i].name[0] == 0xE5)
-            continue;
-
-        for(int j=0;j<8;j++)
-            print_char(root[i].name[j]);
-
-        print_char('.');
-
-        for(int j=0;j<3;j++)
-            print_char(root[i].ext[j]);
-
-        printf("\n");
-    }
+    fat16_list_dir_recursive(root, bpb.root_entry_count,0);
 }
 
 static void fat16_format_name(const char* input, char* output)
@@ -184,10 +168,6 @@ bool fat16_read_fat()
 static uint32_t fat16_cluster_to_lba(uint16_t cluster)
 
 {
-    printf("cluster=%u first_data=%u spc=%u\n",
-       cluster,
-       first_data_sector,
-       bpb.sectors_per_cluster);
     return first_data_sector +
           (cluster - 2) *
           bpb.sectors_per_cluster;
@@ -216,4 +196,196 @@ bool fat16_read_file(FAT16_DirEntry* file, void* buffer)
     }
 
     return true;
+}
+
+bool fat16_read_directory(uint16_t cluster, FAT16_DirEntry* buffer)
+{
+    uint8_t* ptr = (uint8_t*)buffer;
+
+    while (cluster >= 2 && cluster < 0xFFF8)
+    {
+        uint32_t lba = fat16_cluster_to_lba(cluster);
+
+        ata_read28(lba, bpb.sectors_per_cluster, ptr);
+
+        ptr += bpb.sectors_per_cluster * bpb.bytes_per_sector;
+
+        cluster = fat[cluster];
+    }
+
+    return true;
+}
+
+bool fat16_find_in_dir(
+    FAT16_DirEntry* dir,
+    int max_entries,
+    const char* name,
+    FAT16_DirEntry* out)
+{
+    char fat_name[11];
+
+    fat16_format_name(name, fat_name);
+
+    for(int i = 0; i < max_entries; i++)
+    {
+        if(dir[i].name[0] == 0)
+            return false;
+
+        if(dir[i].name[0] == 0xE5)
+            continue;
+
+        bool match = true;
+
+        for(int j = 0; j < 11; j++)
+        {
+            char c;
+
+            if(j < 8)
+                c = dir[i].name[j];
+            else
+                c = dir[i].ext[j-8];
+
+            if(c != fat_name[j])
+            {
+                match = false;
+                break;
+            }
+        }
+
+        if(match)
+        {
+            *out = dir[i];
+            return true;
+        }
+    }
+
+    return false;
+}
+
+const char* next_path_part(const char* path, char* out)
+{
+    int i = 0;
+
+    while(path[i] && path[i] != '/')
+    {
+        out[i] = path[i];
+        i++;
+    }
+
+    out[i] = 0;
+
+    if(path[i] == '/')
+        return path + i + 1;
+
+    return path + i;
+}
+
+bool fat16_find_path(const char* path, FAT16_DirEntry* out)
+{
+    FAT16_DirEntry dir_buffer[128];
+    FAT16_DirEntry entry;
+
+    FAT16_DirEntry* current = root;
+    int max_entries = bpb.root_entry_count;
+
+    if(path[0] == '/')
+        path++;
+
+    while(1)
+    {
+        char part[12];
+
+        path = next_path_part(path, part);
+
+        if(!fat16_find_in_dir(current, max_entries, part, &entry))
+            return false;
+
+        if(*path == 0)
+        {
+            *out = entry;
+            return true;
+        }
+
+        if(!(entry.attr & 0x10))
+            return false;
+
+        fat16_read_directory(entry.first_cluster, dir_buffer);
+
+        current = dir_buffer;
+        max_entries = 128;
+    }
+}
+
+void fat16_list_dir(FAT16_DirEntry* dir, int max_entries)
+{
+    for(int i=0;i<max_entries;i++)
+    {
+        if(dir[i].name[0] == 0)
+            break;
+
+        if(dir[i].name[0] == 0xE5)
+            continue;
+
+        if(dir[i].attr == 0x0F) // skip LFN
+            continue;
+
+        for(int j=0;j<8;j++)
+            print_char(dir[i].name[j]);
+
+        print_char('.');
+
+        for(int j=0;j<3;j++)
+            print_char(dir[i].ext[j]);
+
+        if(dir[i].attr & 0x10)
+            printf(" <DIR>");
+
+        printf("\n");
+    }
+}
+
+void fat16_list_dir_recursive(FAT16_DirEntry* dir, int max_entries,int depth)
+{
+    FAT16_DirEntry dir_buffer[128];
+
+    for(int i=0;i<max_entries;i++)
+    {
+        if(dir[i].name[0] == 0)
+            break;
+
+        if(dir[i].name[0] == 0xE5)
+            continue;
+
+        if(dir[i].attr == 0x0F)
+            continue;
+
+        if(dir[i].name[0] == '.')
+            continue;
+
+
+        for(int d = 0; d < depth; d++)
+            printf(" |   ");
+
+        printf(" |--> ");
+
+        for(int j=0;j<8;j++)
+            print_char(dir[i].name[j]);
+
+        print_char('.');
+
+        for(int j=0;j<3;j++)
+            print_char(dir[i].ext[j]);
+
+        if(dir[i].attr & 0x10)
+            printf(" <DIR>");
+
+        printf("\n");
+
+        if(dir[i].attr & 0x10)
+        {
+            fat16_read_directory(dir[i].first_cluster, dir_buffer);
+
+            fat16_list_dir_recursive(dir_buffer, 128,depth+1);
+        }
+    }
 }
