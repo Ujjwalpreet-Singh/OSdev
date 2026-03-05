@@ -4,7 +4,7 @@
 
 void framebuffer_init(BootInfo* info);
 void putpixel(int x,int y,uint32_t color);
-void clear(uint32_t color);
+void clear_driver(uint32_t color);
 void scroll(int font_height);
 
 uint32_t fb_get_width();

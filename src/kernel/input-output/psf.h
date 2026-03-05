@@ -11,3 +11,4 @@ void print_hex(uint32_t value);
 void print_int(int32_t value);
 void print_uint(uint32_t value);
 void print_string(const char* s);
+void clear(uint32_t color);

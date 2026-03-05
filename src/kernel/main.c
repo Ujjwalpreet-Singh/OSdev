@@ -1,15 +1,12 @@
 #include <stdint.h>
 #include "input-output/bootinfo.h"
-#include "input-output/framebuffer.h"
-#include "input-output/psf.h"
+#include "drivers/initalize.h"
 #include "input-output/printoguri.h"
 
 extern unsigned char font_psf[];
 void kmain(uint16_t bootDrive, BootInfo* bootInfo)
 {
-    framebuffer_init(bootInfo);
-    psf_init(font_psf);
-
+    ALL_INIT(bootDrive,bootInfo);
     clear(0xF);
     printf("BootInfo height: %u\n", bootInfo->height);
     printf("BootInfo width: %u\n", bootInfo->width);
@@ -17,5 +14,13 @@ void kmain(uint16_t bootDrive, BootInfo* bootInfo)
     print("Second stage kernel running\n");
     oguriprint();
     
+    fat16_read_root();
+    print("reading into fat");
+    if (fat16_read_fat()){
+        print("fat loaded!");
+    } else {
+        print("fat not loaded");
+    }
 
+    fat16_list();
 }

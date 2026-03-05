@@ -26,7 +26,7 @@ void putpixel(int x,int y,uint32_t color)
     fb[y*pitch + x] = color;
 }
 
-void clear(uint32_t color)
+void clear_driver(uint32_t color)
 {
     for(int y=0;y<height;y++)
         for(int x=0;x<width;x++)

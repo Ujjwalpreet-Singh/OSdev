@@ -20,6 +20,7 @@ static uint8_t* get_glyph(char c)
     return glyphs + (c * font_height);
 }
 
+
 void draw_char(int x, int y, char c, uint32_t color)
 {
     uint8_t* glyph = get_glyph(c);
@@ -37,6 +38,12 @@ void draw_char(int x, int y, char c, uint32_t color)
 static int cursor_x = 0;
 static int cursor_y = 0;
 
+void clear(uint32_t color){
+    clear_driver(color);
+    cursor_x = 0;
+    cursor_y = 0;
+
+}
 void print(const char* s)
 {
     while (*s)
