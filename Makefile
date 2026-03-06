@@ -13,7 +13,7 @@ fat16_image: $(BUILD_DIR)/main.img
 
 $(BUILD_DIR)/main.img: bootloader kernel kernelt
 	dd if=/dev/zero of=$(BUILD_DIR)/main.img bs=1M count=32
-	mkfs.fat -F 16 -s 4 -n "supercool" $(BUILD_DIR)/main.img
+	mkfs.fat -F 16 -s 4 -n "NBOS" $(BUILD_DIR)/main.img
 	dd if=$(BUILD_DIR)/stage1.bin of=$(BUILD_DIR)/main.img bs=1 conv=notrunc
 	mcopy -i $(BUILD_DIR)/main.img $(BUILD_DIR)/stage2.bin "::stage2.bin"
 	mcopy -i $(BUILD_DIR)/main.img $(BUILD_DIR)/kernel.bin "::kernel.bin"

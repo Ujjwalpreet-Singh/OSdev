@@ -8,7 +8,7 @@ extern unsigned char font_psf[];
 static uint8_t* glyphs;
 static uint32_t font_width = 8;
 static uint32_t font_height = 16;
-
+static uint32_t bg;
 
 void psf_init(void* font)
 {
@@ -39,6 +39,7 @@ static int cursor_x = 0;
 static int cursor_y = 0;
 
 void clear(uint32_t color){
+    bg = color;
     clear_driver(color);
     cursor_x = 0;
     cursor_y = 0;
@@ -52,6 +53,18 @@ void print(const char* s)
         {
             cursor_x = 0;
             cursor_y += font_height;
+        }
+        else if(*s == '\b')
+        {
+            if(cursor_x >= font_width)
+            {
+                cursor_x -= font_width;
+
+                // clear character cell
+                for(int y = 0; y < font_height; y++)
+                    for(int x = 0; x < font_width; x++)
+                        putpixel(cursor_x + x, cursor_y + y, bg);
+            }
         }
         else
         {

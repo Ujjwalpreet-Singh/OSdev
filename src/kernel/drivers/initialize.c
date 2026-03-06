@@ -9,6 +9,7 @@
 #include "../input-output/psf.h"
 #include "../input-output/timer.h"
 #include "../input-output/pic.h"
+#include "../input-output/keyboard.h"
 
 extern unsigned char font_psf[];
 
@@ -20,8 +21,10 @@ void ALL_INIT(uint16_t bootDrive, BootInfo* bootInfo){
     GDT_Initialize();
     IDT_Initialize();
     ata_init(bootDrive);
-    PIT_init(1000);
     PIC_Remap();
+    PIT_init(1000);
+    keyboard_init();
+
     __asm__("sti");
     
     if(!fat16_init())
@@ -29,6 +32,7 @@ void ALL_INIT(uint16_t bootDrive, BootInfo* bootInfo){
         printf("FAT init failed\n");
         while(1);
     }
+
 
 }
 

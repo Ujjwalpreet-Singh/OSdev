@@ -377,7 +377,9 @@ void fat16_list_dir_recursive(FAT16_DirEntry* dir, int max_entries,int depth)
             print_char(dir[i].ext[j]);
 
         if(dir[i].attr & 0x10)
-            printf(" <DIR>");
+            printf(" <DIR>  ");
+
+        print_int(dir[i].file_size);
 
         printf("\n");
 
