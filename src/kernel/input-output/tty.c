@@ -8,7 +8,6 @@ void tty_init()
     tty.head = 0;
     tty.tail = 0;
 }
-
 void tty_keyboard_input(char c)
 {
 

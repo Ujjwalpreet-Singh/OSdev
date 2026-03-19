@@ -51,6 +51,8 @@ bool fat16_read_fat();
 bool fat16_find_path(const char* path, FAT16_DirEntry* out);
 bool fat16_read_directory(uint16_t cluster, FAT16_DirEntry* buffer); 
 void fat16_list_dir_recursive(FAT16_DirEntry* dir, int max_entries,int depth);
-
+bool fat16_create_file(const char* name,uint8_t* data,uint32_t size);
+void fat16_dump_chain(uint16_t cluster);
+void fat16_dump_fat(int max);
 
 #endif

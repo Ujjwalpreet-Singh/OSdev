@@ -7,6 +7,10 @@ static uint32_t pitch;   // pixels per row
 static uint32_t width;
 static uint32_t height;
 
+#define FB_SIZE (1920*1080)
+
+static uint32_t framebuffer_backup[FB_SIZE];
+
 static BootInfo* bootinfo;
 
 void framebuffer_init(BootInfo* info)
@@ -33,7 +37,7 @@ void clear_driver(uint32_t color)
             fb[y*pitch+x]=color;
 }
 
-void scroll(int font_height)
+void scroll(int font_height,uint32_t bg)
 {
     int scroll_rows = font_height;
 
@@ -52,10 +56,26 @@ void scroll(int font_height)
     {
         for(int x=0; x<width; x++)
         {
-            fb[y*pitch+x] = 0x000000;
+            fb[y*pitch+x] = bg;
         }
     }
 }
 
 uint32_t fb_get_width(){ return width; }
 uint32_t fb_get_height(){ return height; }
+
+void fb_save()
+{
+    uint32_t total = pitch * height;
+
+    for(uint32_t i = 0; i < total; i++)
+        framebuffer_backup[i] = fb[i];
+}
+
+void fb_restore()
+{
+    uint32_t total = pitch * height;
+
+    for(uint32_t i = 0; i < total; i++)
+        fb[i] = framebuffer_backup[i];
+}

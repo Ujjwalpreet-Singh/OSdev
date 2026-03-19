@@ -69,5 +69,6 @@ bool ata_read28(uint32_t lba, uint8_t count, void* buffer);
 //
 bool disk_read(uint32_t lba, uint8_t count, void* buffer);
 
+bool ata_write28(uint32_t lba, uint8_t count, uint16_t* buffer);
 
 #endif

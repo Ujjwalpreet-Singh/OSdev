@@ -13,9 +13,17 @@ static char scancode_table[128] =
 0,'*',
 0,' ',   // <-- THIS IS SPACEBAR (scancode 0x39)
 };
-
+static char scancode_shift[128] =
+{
+0,27,'!','@','#','$','%','^','&','*','(',')','_','+', '\b',
+'\t','Q','W','E','R','T','Y','U','I','O','P','{','}','\n',
+0,'A','S','D','F','G','H','J','K','L',':','"','~',
+0,'|','Z','X','C','V','B','N','M','<','>','?',
+0,'*',
+0,' ',
+};
 static int caps_on = 0;
-
+static int shift_pressed = 0;
 static void keyboard_handler(Registers* regs)
 {
     (void)regs;
@@ -26,15 +34,38 @@ static void keyboard_handler(Registers* regs)
     {
         caps_on = !caps_on;
     }
+        // Left Shift
+    if(scancode == 0x2A)
+    {
+        shift_pressed = 1;
+    }
+    if(scancode == 0xAA)
+    {
+        shift_pressed = 0;
+    }
 
+    // Right Shift
+    if(scancode == 0x36)
+    {
+        shift_pressed = 1;
+    }
+    if(scancode == 0xB6)
+    {
+        shift_pressed = 0;
+    }
     if(scancode < 128)
     {
-        char c = scancode_table[scancode];
+        char c;
+        if(shift_pressed)
+            c = scancode_shift[scancode];
+        else
+            c = scancode_table[scancode];
 
         if(caps_on && c >= 'a' && c <= 'z')
         {
             c = c - 32;  // convert to uppercase
         }
+
 
         if(c)
             tty_keyboard_input(c);   // print directly to screen

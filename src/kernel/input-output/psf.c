@@ -10,6 +10,11 @@ static uint32_t font_width = 8;
 static uint32_t font_height = 16;
 static uint32_t bg;
 
+static int saved_x;
+static int saved_y;
+
+
+
 void psf_init(void* font)
 {
     glyphs = (uint8_t*)font + 32; // skip PSF2 header
@@ -78,7 +83,7 @@ void print(const char* s)
             // scroll BEFORE drawing if needed
             if (cursor_y + font_height > fb_get_height())
             {
-                scroll(font_height);
+                scroll(font_height,bg);
                 cursor_y -= font_height;
             }
 
@@ -245,4 +250,46 @@ void print_buffer(const char* label, const void* buffer, uint32_t size)
 
     if (size & 15)
         print("\n");
+}
+
+int atoi(const char* s)
+{
+    int result = 0;
+
+    while(*s >= '0' && *s <= '9')
+    {
+        result = result * 10 + (*s - '0');
+        s++;
+    }
+
+    return result;
+}
+
+uint16_t atoi_u16(const char* s)
+{
+    uint32_t result = 0;
+
+    while(*s >= '0' && *s <= '9')
+    {
+        result = result * 10 + (*s - '0');
+
+        // clamp to uint16_t max
+        if(result > 0xFFFF)
+            return 0xFFFF;
+
+        s++;
+    }
+
+    return (uint16_t)result;
+}
+
+void cursor_save()
+{
+    saved_x = cursor_x;
+    saved_y = cursor_y;
+}
+
+void cursor_restore(){
+    cursor_x = saved_x;
+    cursor_y = saved_y;
 }

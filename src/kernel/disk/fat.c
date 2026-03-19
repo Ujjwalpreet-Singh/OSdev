@@ -1,6 +1,7 @@
 #include "fat.h"
 #include "ata.h"
 #include "../input-output/psf.h"
+#include <stddef.h>
 
 #define ROOT_ADDR 0x70000
 #define FAT_ADDR  0x80000
@@ -390,4 +391,197 @@ void fat16_list_dir_recursive(FAT16_DirEntry* dir, int max_entries,int depth)
             fat16_list_dir_recursive(dir_buffer, 128,depth+1);
         }
     }
+}
+
+int fat16_find_free_cluster()
+{
+    uint32_t total_data_sectors =
+    bpb.total_sectors16 -
+    (bpb.reserved_sectors +
+     bpb.fat_count * bpb.sectors_per_fat +
+     root_dir_sectors);
+
+    uint32_t total_clusters =
+        total_data_sectors / bpb.sectors_per_cluster;
+    for (int i = 2; i < total_clusters+2; i++)
+    {
+        if (fat[i] == 0x0000)
+            return i;
+    }
+
+    return -1; // no space
+}
+
+bool fat16_allocate_clusters(int count, uint16_t* first_cluster_out)
+{
+    uint16_t prev = 0;
+    uint16_t first = 0;
+
+    for(int i = 0; i < count; i++)
+    {
+        int cluster = fat16_find_free_cluster();
+        if(cluster < 0)
+            return false;
+        fat[cluster] = 0xFFFF;
+        if(i == 0)
+            first = cluster;
+        else
+            fat[prev] = cluster;
+
+        prev = cluster;
+    }
+
+    fat[prev] = 0xFFF8; // end of chain
+
+    *first_cluster_out = first;
+    return true;
+}
+
+bool fat16_write_file_data(uint16_t start_cluster,
+                           uint8_t* buffer,
+                           uint32_t size)
+{
+    uint16_t cluster = start_cluster;
+    uint32_t cluster_size =
+        bpb.sectors_per_cluster * bpb.bytes_per_sector;
+
+    uint8_t temp[cluster_size]; // assume max cluster size <= 4KB
+
+    while(cluster >= 2 && cluster < 0xFFF8)
+    {
+        uint32_t lba = fat16_cluster_to_lba(cluster);
+
+        uint32_t to_write =
+            (size > cluster_size) ? cluster_size : size;
+
+        // zero buffer (important for last cluster)
+        for(uint32_t i = 0; i < cluster_size; i++)
+            temp[i] = 0;
+
+        // copy actual data
+        for(uint32_t i = 0; i < to_write; i++)
+            temp[i] = buffer[i];
+
+        ata_write28(lba,
+                    bpb.sectors_per_cluster,
+                    (uint16_t*)temp);
+
+        buffer += to_write;
+        size   -= to_write;
+
+        if(size == 0)
+            break;
+
+        cluster = fat[cluster];
+    }
+
+    return true;
+}
+
+bool fat16_flush_fat()
+{
+    for(int i = 0; i < bpb.fat_count; i++)
+    {
+        ata_write28(first_fat_sector + i * bpb.sectors_per_fat,
+                    bpb.sectors_per_fat,
+                    fat);
+    }
+    return true;
+}
+
+bool fat16_create_file(const char* name,
+                       uint8_t* data,
+                       uint32_t size)
+{
+
+    char upper[12];
+    int i = 0;
+
+    while(name[i] && i < 11)
+    {
+        char c = name[i];
+
+        if(c >= 'a' && c <= 'z')
+            c -= 32;
+
+        upper[i] = c;
+        i++;
+    }
+
+    upper[i] = 0;
+
+    uint32_t cluster_size =
+        bpb.sectors_per_cluster * bpb.bytes_per_sector;
+
+    int cluster_count =
+        (size + cluster_size - 1) / cluster_size;
+
+    uint16_t first_cluster;
+
+    if(!fat16_allocate_clusters(cluster_count, &first_cluster))
+        return false;
+
+    fat16_flush_fat();
+    fat16_write_file_data(first_cluster, data, size);
+
+
+    // create dir entry
+    FAT16_DirEntry* entry = NULL;
+
+    for(int i = 0; i < bpb.root_entry_count; i++)
+    {
+        if(root[i].name[0] == 0x00 || root[i].name[0] == 0xE5)
+        {
+            entry = &root[i];
+            break;
+        }
+    }
+
+    if(!entry) return false;
+
+    fat16_format_name(upper, entry->name);
+
+    entry->attr = 0x20;
+    entry->first_cluster = first_cluster;
+    entry->file_size = size;
+
+    ata_write28(first_root_sector,
+                root_dir_sectors,
+                (uint16_t*)root);
+
+    return true;
+}
+
+void fat16_dump_fat(int max)
+{
+    
+    printf("\nFAT TABLE DUMP:\n");
+
+    for(int i = 2; i < max; i++)
+    {
+        printf("%d: %x\n", i, fat[i]);
+    }
+}
+
+void fat16_dump_chain(uint16_t cluster)
+{
+    printf("Cluster chain: ");
+
+    int count = 0;
+
+    while(cluster >= 2 && cluster < 0xFFF8)
+    {
+        printf("%u -> ", cluster);
+
+        cluster = fat[cluster];
+
+        // prevent infinite loops
+        if(count++ > 100)
+        {
+            printf("LOOP DETECTED\n");
+            return;
+        }
+    }
+
+    printf("EOF\n");
 }

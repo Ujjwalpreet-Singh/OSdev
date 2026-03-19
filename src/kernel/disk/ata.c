@@ -34,6 +34,11 @@ static inline uint16_t inw(uint16_t port)
     return ret;
 }
 
+static inline void outw(uint16_t port, uint16_t val)
+{
+    __asm__ volatile("outw %0,%1"::"a"(val),"Nd"(port));
+}
+
 void ata_init(uint8_t bootDrive)
 {
     if (bootDrive & 1)
@@ -77,6 +82,46 @@ bool ata_read28(uint32_t lba,uint8_t count, void* buffer)
 
         ptr += 256;
     }
+
+    return true;
+}
+
+bool ata_write28(uint32_t lba, uint8_t count, uint16_t* buffer)
+{
+    ata_wait();
+
+    outb(ATA_DRIVE, driveSelect | ((lba >> 24) & 0x0F));
+
+    outb(ATA_SECCOUNT, count);
+    outb(ATA_LBA_LOW,  lba & 0xFF);
+    outb(ATA_LBA_MID, (lba >> 8) & 0xFF);
+    outb(ATA_LBA_HIGH,(lba >> 16) & 0xFF);
+
+    outb(ATA_COMMAND, 0x30); // WRITE SECTORS
+
+    for (int s = 0; s < count; s++)
+    {
+        uint8_t status;
+
+        // Wait until not busy
+        do {
+            status = inb(ATA_STATUS);
+        } while (status & ATA_SR_BSY);
+
+        // Wait for DRQ
+        while (!(status & ATA_SR_DRQ))
+            status = inb(ATA_STATUS);
+
+        // Write one sector (512 bytes)
+        for (int i = 0; i < 256; i++)
+            outw(ATA_DATA, buffer[i]);
+
+        buffer += 256;
+    }
+
+    // Flush cache (IMPORTANT)
+    outb(ATA_COMMAND, 0xE7);
+    ata_wait();
 
     return true;
 }

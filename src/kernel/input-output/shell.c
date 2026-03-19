@@ -26,7 +26,7 @@ void shell()
 
         else if(c == '\b')
         {
-            if(index > 0)
+            if(index > 1)
                 index--;
         }
 

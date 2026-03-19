@@ -16,30 +16,17 @@ void kmain(uint16_t bootDrive, BootInfo* bootInfo)
     oguriprint();
     
     fat16_read_root();
-    print("reading into fat");
+    print("\nreading into fat");
     if (fat16_read_fat()){
-        print("fat loaded!");
+        print("\nfat loaded!\n");
     } else {
-        print("fat not loaded");
+        print("\nfat not loaded\n");
     }
 
-    fat16_list();
 
-    FAT16_DirEntry file;
-
-
-    if(fat16_find_path("HOME/USR/TEST.TXT", &file)){
-        print("TEST.TXT FOUND!");
-        fat16_read_file(&file,(void*)0x800000);
-
-        char* data = (char*)0x800000;
-
-        for(uint32_t i = 0; i < file.file_size; i++)
-        {
-            print_char(data[i]);
-        }
-    }
-    print("shell is alive..");
+    print("Booting up shell...");
+    sleep(2500);
+    clear(0xF);
     shell();
 
 }

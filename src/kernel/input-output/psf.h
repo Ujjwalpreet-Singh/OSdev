@@ -12,3 +12,7 @@ void print_int(int32_t value);
 void print_uint(uint32_t value);
 void print_string(const char* s);
 void clear(uint32_t color);
+int atoi(const char* s);
+uint16_t atoi_u16(const char* s);
+void cursor_save();
+void cursor_restore();
