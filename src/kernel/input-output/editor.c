@@ -12,12 +12,12 @@ void editor(char* arg)
     for(int i = 0; i < EDIT_BUFFER; i++)
         buffer[i] = 0;
     printf("----EDIOTR!----\n");
-    printf(";s to save,;q to quit\n\n");
+    printf(":s to save,:q to quit\n\n");
 
     while(1){
         char c = tty_getchar();
 
-        if (c == ';'){
+        if (c == ':'){
             char cmd = tty_getchar();
             if(cmd == 'q')
             {

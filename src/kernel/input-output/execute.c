@@ -4,6 +4,8 @@
 #include "printoguri.h"
 #include "editor.h"
 
+void run_uma(const char* filename);
+
 int strncmp(const char* a, const char* b, uint32_t n)
 {
     for(uint32_t i = 0; i < n; i++)
@@ -30,6 +32,26 @@ int strcmp(const char* a, const char* b)
     }
 
     return (*a != *b);
+}
+
+int ends_with(const char* str, const char* suffix)
+{
+    int len1 = 0;
+    int len2 = 0;
+
+    while(str[len1]) len1++;
+    while(suffix[len2]) len2++;
+
+    if(len2 > len1)
+        return 0;
+
+    for(int i = 0; i < len2; i++)
+    {
+        if(str[len1 - len2 + i] != suffix[i])
+            return 0;
+    }
+
+    return 1;
 }
 
 void execute_command(char* cmd)
@@ -155,11 +177,73 @@ void execute_command(char* cmd)
         cursor_save();
         clear(0xFF);
         editor(arg);
+        clear(0xF);
         fb_restore();
         cursor_restore();
+    }
+    else if (strncmp(cmd, "run ", 4) == 0)
+    {
+        char* filename = cmd + 4;
+
+        // skip spaces
+        while(*filename == ' ')
+            filename++;
+
+        if(!ends_with(filename, ".UMA"))
+        {
+            print("Error: only .uma files can be ran");
+            return;
+        }
+
+        run_uma(filename);
     }
     else
     {
         print("Unknown command");
+    }
+}
+
+void run_uma(const char* filename)
+{
+    FAT16_DirEntry file;
+
+    if (!fat16_find_path(filename, &file))
+    {
+        print("Script not found");
+        return;
+    }
+
+    fat16_read_file(&file, (void*)0x800000);
+
+    char* data = (char*)0x800000;
+    uint32_t i = 0;
+
+    char line[128];
+    int line_pos = 0;
+
+    while (i < file.file_size)
+    {
+        char c = data[i++];
+
+        if (c == '\n' || c == '\r')
+        {
+            line[line_pos] = 0;
+
+            if (line_pos > 0)
+                execute_command(line);
+
+            line_pos = 0;
+        }
+        else
+        {
+            line[line_pos++] = c;
+        }
+    }
+
+    // last line (if no newline at end)
+    if (line_pos > 0)
+    {
+        line[line_pos] = 0;
+        execute_command(line);
     }
 }
