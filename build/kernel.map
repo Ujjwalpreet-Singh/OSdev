@@ -43,7 +43,7 @@ LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
  .entry         0x00500000        0x9 /home/Ythunder/Desktop/OSdev/build/kernel/asm/entry.obj
                 0x00500000                _start
 
-.text           0x00500010     0x50db
+.text           0x00500010     0x535e
                 0x00500010                        __text_start = .
  *(.text)
  .text          0x00500010       0x2c /home/Ythunder/Desktop/OSdev/build/kernel/asm/drivers/gdt.obj
@@ -321,7 +321,7 @@ LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
                 0x00500c5d                ata_init
                 0x00500ca0                ata_read28
                 0x00500dce                ata_write28
- .text          0x00500f0c     0x116f /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
+ .text          0x00500f0c     0x13f2 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
                 0x00500f0c                fat16_init
                 0x005010fd                fat16_read_root
                 0x0050114f                fat16_list
@@ -337,207 +337,209 @@ LOAD /home/Ythunder/Ythunder/OSdev/toolchain/lib/gcc/i686-elf/15.2.0/libgcc.a
                 0x00501b52                fat16_find_free_cluster
                 0x00501bea                fat16_allocate_clusters
                 0x00501c83                fat16_write_file_data
-                0x00501db5                fat16_flush_fat
-                0x00501e18                fat16_create_file
-                0x00501f97                fat16_dump_fat
-                0x00501fec                fat16_dump_chain
- .text          0x0050207b       0x1d /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
-                0x0050207b                GDT_Initialize
- .text          0x00502098       0xba /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
-                0x00502098                IDT_SetGate
-                0x005020f9                IDT_EnableGate
-                0x00502119                IDT_DisableGate
-                0x00502139                IDT_Initialize
- .text          0x00502152       0x96 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
-                0x00502152                ALL_INIT
- .text          0x005021e8      0x1a1 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
-                0x005021e8                ISR_Initialize
-                0x0050222a                ISR_Handler
-                0x00502365                ISR_RegisterHandler
- .text          0x00502389     0x1489 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
-                0x00502389                ISR_InitializeGates
- .text          0x00503812       0xf5 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
-                0x00503812                memcpy
-                0x00503864                memset
-                0x005038a7                memcmp
- .text          0x00503907      0x154 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
-                0x00503907                editor
- .text          0x00503a5b      0x6a3 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
-                0x00503a5b                strncmp
-                0x00503ab4                strcmp
-                0x00503b02                ends_with
-                0x00503b98                execute_command
-                0x00504009                run_uma
- .text          0x005040fe        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
- .text          0x005040fe      0x25c /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
-                0x005040fe                framebuffer_init
-                0x00504147                putpixel
-                0x0050416e                clear_driver
-                0x005041cb                scroll
-                0x005042b4                fb_get_width
-                0x005042be                fb_get_height
-                0x005042c8                fb_save
-                0x00504311                fb_restore
- .text          0x0050435a       0xff /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
-                0x0050443e                keyboard_init
- .text          0x00504459       0xdc /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
-                0x00504459                PIC_Remap
- .text          0x00504535      0x229 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
-                0x00504535                oguriprint
- .text          0x0050475e      0x76e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
-                0x0050475e                psf_init
-                0x00504791                draw_char
-                0x00504829                clear
-                0x0050485c                print
-                0x005049f5                print_char
-                0x00504a1e                print_string
-                0x00504a42                print_uint
-                0x00504ad7                print_int
-                0x00504b05                print_hex
-                0x00504b9a                printf
-                0x00504cfd                print_buffer
-                0x00504df2                atoi
-                0x00504e3d                atoi_u16
-                0x00504e98                cursor_save
-                0x00504eb2                cursor_restore
- .text          0x00504ecc       0xa4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
-                0x00504ecc                shell
- .text          0x00504f70       0xb5 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
-                0x00504f95                PIT_init
-                0x00504ffa                sleep
- .text          0x00505025       0xc6 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
-                0x00505025                tty_init
-                0x0050503f                tty_keyboard_input
-                0x0050508f                tty_putchar
-                0x005050ae                tty_getchar
+                0x00501db5                strcpy
+                0x00501de4                fat16_flush_fat
+                0x00501e47                fat16_create_file
+                0x0050215d                fat16_dump_fat
+                0x005021b2                fat16_dump_chain
+                0x00502241                split_path
+ .text          0x005022fe       0x1d /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
+                0x005022fe                GDT_Initialize
+ .text          0x0050231b       0xba /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
+                0x0050231b                IDT_SetGate
+                0x0050237c                IDT_EnableGate
+                0x0050239c                IDT_DisableGate
+                0x005023bc                IDT_Initialize
+ .text          0x005023d5       0x96 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
+                0x005023d5                ALL_INIT
+ .text          0x0050246b      0x1a1 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
+                0x0050246b                ISR_Initialize
+                0x005024ad                ISR_Handler
+                0x005025e8                ISR_RegisterHandler
+ .text          0x0050260c     0x1489 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
+                0x0050260c                ISR_InitializeGates
+ .text          0x00503a95       0xf5 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
+                0x00503a95                memcpy
+                0x00503ae7                memset
+                0x00503b2a                memcmp
+ .text          0x00503b8a      0x154 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
+                0x00503b8a                editor
+ .text          0x00503cde      0x6a3 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
+                0x00503cde                strncmp
+                0x00503d37                strcmp
+                0x00503d85                ends_with
+                0x00503e1b                execute_command
+                0x0050428c                run_uma
+ .text          0x00504381        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
+ .text          0x00504381      0x25c /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
+                0x00504381                framebuffer_init
+                0x005043ca                putpixel
+                0x005043f1                clear_driver
+                0x0050444e                scroll
+                0x00504537                fb_get_width
+                0x00504541                fb_get_height
+                0x0050454b                fb_save
+                0x00504594                fb_restore
+ .text          0x005045dd       0xff /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
+                0x005046c1                keyboard_init
+ .text          0x005046dc       0xdc /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
+                0x005046dc                PIC_Remap
+ .text          0x005047b8      0x229 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
+                0x005047b8                oguriprint
+ .text          0x005049e1      0x76e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
+                0x005049e1                psf_init
+                0x00504a14                draw_char
+                0x00504aac                clear
+                0x00504adf                print
+                0x00504c78                print_char
+                0x00504ca1                print_string
+                0x00504cc5                print_uint
+                0x00504d5a                print_int
+                0x00504d88                print_hex
+                0x00504e1d                printf
+                0x00504f80                print_buffer
+                0x00505075                atoi
+                0x005050c0                atoi_u16
+                0x0050511b                cursor_save
+                0x00505135                cursor_restore
+ .text          0x0050514f       0xa4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
+                0x0050514f                shell
+ .text          0x005051f3       0xb5 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
+                0x00505218                PIT_init
+                0x0050527d                sleep
+ .text          0x005052a8       0xc6 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
+                0x005052a8                tty_init
+                0x005052c2                tty_keyboard_input
+                0x00505312                tty_putchar
+                0x00505331                tty_getchar
 
-.data           0x00505100     0x1508
-                0x00505100                        __data_start = .
+.data           0x00505380     0x1508
+                0x00505380                        __data_start = .
  *(.data)
- .data          0x00505100        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
- .data          0x00505100        0x1 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/ata.obj
- *fill*         0x00505101        0x3 
- .data          0x00505104        0x8 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
- .data          0x0050510c       0x1e /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
-                0x0050510c                g_GDT
-                0x00505124                g_GDTDescriptor
- *fill*         0x0050512a        0x2 
- .data          0x0050512c        0x6 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
-                0x0050512c                g_IDTDescriptor
- .data          0x00505132        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
- .data          0x00505132        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
- .data          0x00505132        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
- .data          0x00505132        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
- .data          0x00505132        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
- .data          0x00505132        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
- *fill*         0x00505132        0xe 
- .data          0x00505140     0x13a4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
-                0x00505140                font_psf
-                0x005064e0                _usr_share_kbd_consolefonts_Lat2_Terminus16_psfu_len
- .data          0x005064e4        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
- *fill*         0x005064e4       0x1c 
- .data          0x00506500      0x100 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
- .data          0x00506600        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
- .data          0x00506600        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
- .data          0x00506600        0x8 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
- .data          0x00506608        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
- .data          0x00506608        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
- .data          0x00506608        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
+ .data          0x00505380        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
+ .data          0x00505380        0x1 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/ata.obj
+ *fill*         0x00505381        0x3 
+ .data          0x00505384        0x8 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
+ .data          0x0050538c       0x1e /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
+                0x0050538c                g_GDT
+                0x005053a4                g_GDTDescriptor
+ *fill*         0x005053aa        0x2 
+ .data          0x005053ac        0x6 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
+                0x005053ac                g_IDTDescriptor
+ .data          0x005053b2        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
+ .data          0x005053b2        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
+ .data          0x005053b2        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
+ .data          0x005053b2        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
+ .data          0x005053b2        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
+ .data          0x005053b2        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
+ *fill*         0x005053b2        0xe 
+ .data          0x005053c0     0x13a4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
+                0x005053c0                font_psf
+                0x00506760                _usr_share_kbd_consolefonts_Lat2_Terminus16_psfu_len
+ .data          0x00506764        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
+ *fill*         0x00506764       0x1c 
+ .data          0x00506780      0x100 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
+ .data          0x00506880        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
+ .data          0x00506880        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
+ .data          0x00506880        0x8 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
+ .data          0x00506888        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
+ .data          0x00506888        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
+ .data          0x00506888        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
 
-.rodata         0x00506620     0x11f3
-                0x00506620                        __rodata_start = .
+.rodata         0x005068a0     0x1213
+                0x005068a0                        __rodata_start = .
  *(.rodata)
- .rodata        0x00506620       0x96 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
- .rodata        0x005066b6      0x1c5 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
- .rodata        0x0050687b       0x11 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
- *fill*         0x0050688c       0x14 
- .rodata        0x005068a0      0x34f /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
- .rodata        0x00506bef       0x62 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
- *fill*         0x00506c51        0x3 
- .rodata        0x00506c54      0x10f /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
- *fill*         0x00506d63        0x1 
- .rodata        0x00506d64      0xa9d /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
- .rodata        0x00507801        0xe /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
- .rodata        0x0050780f        0x4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
+ .rodata        0x005068a0       0x96 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
+ .rodata        0x00506936      0x1e9 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
+ .rodata        0x00506b1f       0x11 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
+ *fill*         0x00506b30       0x10 
+ .rodata        0x00506b40      0x34f /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
+ .rodata        0x00506e8f       0x62 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
+ *fill*         0x00506ef1        0x3 
+ .rodata        0x00506ef4      0x10f /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
+ *fill*         0x00507003        0x1 
+ .rodata        0x00507004      0xa9d /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
+ .rodata        0x00507aa1        0xe /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
+ .rodata        0x00507aaf        0x4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
 
-.bss            0x00507820   0x7ebee8
-                0x00507820                        __bss_start = .
+.bss            0x00507ac0   0x7ebee8
+                0x00507ac0                        __bss_start = .
  *(.bss)
- .bss           0x00507820        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
- .bss           0x00507820        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/ata.obj
- .bss           0x00507820       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
- .bss           0x00507854        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
- *fill*         0x00507854        0xc 
- .bss           0x00507860      0x800 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
-                0x00507860                g_IDT
- .bss           0x00508060        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
- .bss           0x00508060      0x400 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
-                0x00508060                g_ISRHandlers
- .bss           0x00508460        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
- .bss           0x00508460        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
- .bss           0x00508460     0x2004 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
- .bss           0x0050a464        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
- .bss           0x0050a464        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
- *fill*         0x0050a464       0x1c 
- .bss           0x0050a480   0x7e9024 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
- .bss           0x00cf34a4        0x8 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
- .bss           0x00cf34ac        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
- .bss           0x00cf34ac        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
- .bss           0x00cf34ac       0x18 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
- *fill*         0x00cf34c4       0x1c 
- .bss           0x00cf34e0      0x104 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
-                0x00cf34e0                cmd
-                0x00cf35e0                index
- .bss           0x00cf35e4        0x4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
-                0x00cf35e4                g_ticks
- *fill*         0x00cf35e8       0x18 
- .bss           0x00cf3600      0x108 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
-                0x00cf3708                        __end = .
+ .bss           0x00507ac0        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
+ .bss           0x00507ac0        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/ata.obj
+ .bss           0x00507ac0       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
+ .bss           0x00507af4        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
+ *fill*         0x00507af4        0xc 
+ .bss           0x00507b00      0x800 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
+                0x00507b00                g_IDT
+ .bss           0x00508300        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
+ .bss           0x00508300      0x400 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
+                0x00508300                g_ISRHandlers
+ .bss           0x00508700        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
+ .bss           0x00508700        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
+ .bss           0x00508700     0x2004 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
+ .bss           0x0050a704        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
+ .bss           0x0050a704        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
+ *fill*         0x0050a704       0x1c 
+ .bss           0x0050a720   0x7e9024 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
+ .bss           0x00cf3744        0x8 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
+ .bss           0x00cf374c        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
+ .bss           0x00cf374c        0x0 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
+ .bss           0x00cf374c       0x18 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
+ *fill*         0x00cf3764       0x1c 
+ .bss           0x00cf3780      0x104 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
+                0x00cf3780                cmd
+                0x00cf3880                index
+ .bss           0x00cf3884        0x4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
+                0x00cf3884                g_ticks
+ *fill*         0x00cf3888       0x18 
+ .bss           0x00cf38a0      0x108 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
+                0x00cf39a8                        __end = .
 OUTPUT(/home/Ythunder/Desktop/OSdev/build/kernel.bin binary)
 
-.debug_info     0x00000000     0x422e
+.debug_info     0x00000000     0x43f9
  .debug_info    0x00000000      0x1b8 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
  .debug_info    0x000001b8      0x2d8 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/ata.obj
- .debug_info    0x00000490      0xc09 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
- .debug_info    0x00001099      0x1fa /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
- .debug_info    0x00001293      0x24e /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
- .debug_info    0x000014e1      0x1fd /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
- .debug_info    0x000016de      0x29c /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
- .debug_info    0x0000197a      0xd09 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
- .debug_info    0x00002683      0x1e8 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
- .debug_info    0x0000286b      0x18b /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
- .debug_info    0x000029f6      0x59e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
- .debug_info    0x00002f94       0x9b /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
- .debug_info    0x0000302f      0x341 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
- .debug_info    0x00003370      0x28f /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
- .debug_info    0x000035ff       0xdd /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
- .debug_info    0x000036dc       0xa3 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
- .debug_info    0x0000377f      0x5b9 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
- .debug_info    0x00003d38      0x116 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
- .debug_info    0x00003e4e      0x262 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
- .debug_info    0x000040b0      0x17e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
+ .debug_info    0x00000490      0xdd4 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
+ .debug_info    0x00001264      0x1fa /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
+ .debug_info    0x0000145e      0x24e /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
+ .debug_info    0x000016ac      0x1fd /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
+ .debug_info    0x000018a9      0x29c /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
+ .debug_info    0x00001b45      0xd09 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
+ .debug_info    0x0000284e      0x1e8 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
+ .debug_info    0x00002a36      0x18b /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
+ .debug_info    0x00002bc1      0x59e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
+ .debug_info    0x0000315f       0x9b /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
+ .debug_info    0x000031fa      0x341 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
+ .debug_info    0x0000353b      0x28f /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
+ .debug_info    0x000037ca       0xdd /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
+ .debug_info    0x000038a7       0xa3 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
+ .debug_info    0x0000394a      0x5b9 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
+ .debug_info    0x00003f03      0x116 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
+ .debug_info    0x00004019      0x262 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
+ .debug_info    0x0000427b      0x17e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
 
-.debug_abbrev   0x00000000     0x16c0
+.debug_abbrev   0x00000000     0x16db
  .debug_abbrev  0x00000000       0xf8 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
  .debug_abbrev  0x000000f8      0x13e /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/ata.obj
- .debug_abbrev  0x00000236      0x2cc /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
- .debug_abbrev  0x00000502       0xf0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
- .debug_abbrev  0x000005f2      0x122 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
- .debug_abbrev  0x00000714      0x11c /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
- .debug_abbrev  0x00000830      0x150 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
- .debug_abbrev  0x00000980       0xbf /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
- .debug_abbrev  0x00000a3f       0xe2 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
- .debug_abbrev  0x00000b21      0x10e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
- .debug_abbrev  0x00000c2f      0x195 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
- .debug_abbrev  0x00000dc4       0x5e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
- .debug_abbrev  0x00000e22      0x150 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
- .debug_abbrev  0x00000f72      0x12f /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
- .debug_abbrev  0x000010a1       0x97 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
- .debug_abbrev  0x00001138       0x6d /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
- .debug_abbrev  0x000011a5      0x1c7 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
- .debug_abbrev  0x0000136c       0xdb /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
- .debug_abbrev  0x00001447      0x145 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
- .debug_abbrev  0x0000158c      0x134 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
+ .debug_abbrev  0x00000236      0x2e7 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
+ .debug_abbrev  0x0000051d       0xf0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
+ .debug_abbrev  0x0000060d      0x122 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
+ .debug_abbrev  0x0000072f      0x11c /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
+ .debug_abbrev  0x0000084b      0x150 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
+ .debug_abbrev  0x0000099b       0xbf /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
+ .debug_abbrev  0x00000a5a       0xe2 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
+ .debug_abbrev  0x00000b3c      0x10e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
+ .debug_abbrev  0x00000c4a      0x195 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
+ .debug_abbrev  0x00000ddf       0x5e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
+ .debug_abbrev  0x00000e3d      0x150 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
+ .debug_abbrev  0x00000f8d      0x12f /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
+ .debug_abbrev  0x000010bc       0x97 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
+ .debug_abbrev  0x00001153       0x6d /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
+ .debug_abbrev  0x000011c0      0x1c7 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
+ .debug_abbrev  0x00001387       0xdb /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
+ .debug_abbrev  0x00001462      0x145 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
+ .debug_abbrev  0x000015a7      0x134 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
 
 .debug_aranges  0x00000000      0x278
  .debug_aranges
@@ -581,49 +583,49 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/kernel.bin binary)
  .debug_aranges
                 0x00000258       0x20 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
 
-.debug_line     0x00000000     0x1c87
+.debug_line     0x00000000     0x1d9a
  .debug_line    0x00000000       0xa9 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
  .debug_line    0x000000a9      0x194 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/ata.obj
- .debug_line    0x0000023d      0x7ad /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
- .debug_line    0x000009ea       0x5c /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
- .debug_line    0x00000a46       0x89 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
- .debug_line    0x00000acf       0x9d /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
- .debug_line    0x00000b6c       0xd8 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
- .debug_line    0x00000c44      0x25f /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
- .debug_line    0x00000ea3       0xd0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
- .debug_line    0x00000f73       0xe8 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
- .debug_line    0x0000105b      0x350 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
- .debug_line    0x000013ab       0x3a /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
- .debug_line    0x000013e5      0x1b6 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
- .debug_line    0x0000159b       0xd1 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
- .debug_line    0x0000166c       0x7a /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
- .debug_line    0x000016e6       0x75 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
- .debug_line    0x0000175b      0x34f /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
- .debug_line    0x00001aaa       0x8e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
- .debug_line    0x00001b38       0x9e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
- .debug_line    0x00001bd6       0xb1 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
+ .debug_line    0x0000023d      0x8c0 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
+ .debug_line    0x00000afd       0x5c /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
+ .debug_line    0x00000b59       0x89 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
+ .debug_line    0x00000be2       0x9d /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
+ .debug_line    0x00000c7f       0xd8 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
+ .debug_line    0x00000d57      0x25f /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
+ .debug_line    0x00000fb6       0xd0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
+ .debug_line    0x00001086       0xe8 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
+ .debug_line    0x0000116e      0x350 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
+ .debug_line    0x000014be       0x3a /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
+ .debug_line    0x000014f8      0x1b6 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
+ .debug_line    0x000016ae       0xd1 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
+ .debug_line    0x0000177f       0x7a /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
+ .debug_line    0x000017f9       0x75 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
+ .debug_line    0x0000186e      0x34f /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
+ .debug_line    0x00001bbd       0x8e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
+ .debug_line    0x00001c4b       0x9e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
+ .debug_line    0x00001ce9       0xb1 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
 
-.debug_str      0x00000000     0x2ad9
+.debug_str      0x00000000     0x2b28
  .debug_str     0x00000000      0x187 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
  .debug_str     0x00000187      0x151 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/ata.obj
- .debug_str     0x000002d8      0x54a /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
- .debug_str     0x00000822      0x2f0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
- .debug_str     0x00000b12      0x278 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
- .debug_str     0x00000d8a      0x1ca /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
- .debug_str     0x00000f54      0x1a8 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
- .debug_str     0x000010fc      0x854 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
- .debug_str     0x00001950      0x125 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
- .debug_str     0x00001a75      0x125 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
- .debug_str     0x00001b9a      0x2c4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
- .debug_str     0x00001e5e      0x10d /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
- .debug_str     0x00001f6b      0x1b2 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
- .debug_str     0x0000211d      0x1af /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
- .debug_str     0x000022cc       0xfb /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
- .debug_str     0x000023c7       0xe5 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
- .debug_str     0x000024ac      0x27e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
- .debug_str     0x0000272a      0x103 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
- .debug_str     0x0000282d      0x17a /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
- .debug_str     0x000029a7      0x132 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
+ .debug_str     0x000002d8      0x599 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
+ .debug_str     0x00000871      0x2f0 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
+ .debug_str     0x00000b61      0x278 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
+ .debug_str     0x00000dd9      0x1ca /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
+ .debug_str     0x00000fa3      0x1a8 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
+ .debug_str     0x0000114b      0x854 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
+ .debug_str     0x0000199f      0x125 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
+ .debug_str     0x00001ac4      0x125 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
+ .debug_str     0x00001be9      0x2c4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
+ .debug_str     0x00001ead      0x10d /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/font.obj
+ .debug_str     0x00001fba      0x1b2 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
+ .debug_str     0x0000216c      0x1af /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
+ .debug_str     0x0000231b       0xfb /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
+ .debug_str     0x00002416       0xe5 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
+ .debug_str     0x000024fb      0x27e /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
+ .debug_str     0x00002779      0x103 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
+ .debug_str     0x0000287c      0x17a /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
+ .debug_str     0x000029f6      0x132 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
 
 .debug_line_str
                 0x00000000     0x11ef
@@ -690,26 +692,26 @@ OUTPUT(/home/Ythunder/Desktop/OSdev/build/kernel.bin binary)
  .comment       0x00000156       0x13 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
  .comment       0x00000169       0x13 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
 
-.debug_frame    0x00000000      0xc3c
+.debug_frame    0x00000000      0xc7c
  .debug_frame   0x00000000       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/main.obj
  .debug_frame   0x00000034      0x118 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/ata.obj
- .debug_frame   0x0000014c      0x2c0 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
- .debug_frame   0x0000040c       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
- .debug_frame   0x00000440       0x94 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
- .debug_frame   0x000004d4       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
- .debug_frame   0x00000508       0x80 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
- .debug_frame   0x00000588       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
- .debug_frame   0x000005bc       0x74 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
- .debug_frame   0x00000630       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
- .debug_frame   0x00000664       0xb4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
- .debug_frame   0x00000718      0x118 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
- .debug_frame   0x00000830       0x54 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
- .debug_frame   0x00000884       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
- .debug_frame   0x000008b8       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
- .debug_frame   0x000008ec      0x21c /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
- .debug_frame   0x00000b08       0x2c /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
- .debug_frame   0x00000b34       0x74 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
- .debug_frame   0x00000ba8       0x94 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
+ .debug_frame   0x0000014c      0x300 /home/Ythunder/Desktop/OSdev/build/kernel/c/disk/fat.obj
+ .debug_frame   0x0000044c       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/gdt.obj
+ .debug_frame   0x00000480       0x94 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/idt.obj
+ .debug_frame   0x00000514       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/initialize.obj
+ .debug_frame   0x00000548       0x80 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isr.obj
+ .debug_frame   0x000005c8       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/isrs_gen.obj
+ .debug_frame   0x000005fc       0x74 /home/Ythunder/Desktop/OSdev/build/kernel/c/drivers/memory.obj
+ .debug_frame   0x00000670       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/editor.obj
+ .debug_frame   0x000006a4       0xb4 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/execute.obj
+ .debug_frame   0x00000758      0x118 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/framebuffer.obj
+ .debug_frame   0x00000870       0x54 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/keyboard.obj
+ .debug_frame   0x000008c4       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/pic.obj
+ .debug_frame   0x000008f8       0x34 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/printoguri.obj
+ .debug_frame   0x0000092c      0x21c /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/psf.obj
+ .debug_frame   0x00000b48       0x2c /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/shell.obj
+ .debug_frame   0x00000b74       0x74 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/timer.obj
+ .debug_frame   0x00000be8       0x94 /home/Ythunder/Desktop/OSdev/build/kernel/c/input-output/tty.obj
 
 .debug_rnglists
                 0x00000000       0x2d

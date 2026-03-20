@@ -15,7 +15,7 @@ static uint32_t root_dir_sectors;
 
 static FAT16_DirEntry* root = (FAT16_DirEntry*)ROOT_ADDR;
 static uint16_t* fat = (uint16_t*)FAT_ADDR;
-
+void split_path(const char* path, char* dir, char* file);
 
 bool fat16_init()
 {
@@ -478,6 +478,15 @@ bool fat16_write_file_data(uint16_t start_cluster,
     return true;
 }
 
+void strcpy(char* dest, const char* src)
+{
+    while(*src)
+    {
+        *dest++ = *src++;
+    }
+    *dest = 0;
+}
+
 bool fat16_flush_fat()
 {
     for(int i = 0; i < bpb.fat_count; i++)
@@ -493,13 +502,44 @@ bool fat16_create_file(const char* name,
                        uint8_t* data,
                        uint32_t size)
 {
+    fat16_read_fat();
+    char dir_path[128];
+    char filename[32];
+
+    split_path(name, dir_path, filename);
+
+    FAT16_DirEntry dir_entry;
+    FAT16_DirEntry dir_buffer[128];
+
+    FAT16_DirEntry* target_dir = root;
+    int max_entries = bpb.root_entry_count;
+
+    if(dir_path[0] != 0)
+    {
+        if(!fat16_find_path(dir_path, &dir_entry))
+        {
+            print("Directory not found");
+            return false;
+        }
+
+        if(!(dir_entry.attr & 0x10))
+        {
+            print("Not a directory");
+            return false;
+        }
+
+        fat16_read_directory(dir_entry.first_cluster, dir_buffer);
+
+        target_dir = dir_buffer;
+        max_entries = 128;
+    }
 
     char upper[12];
     int i = 0;
 
-    while(name[i] && i < 11)
+    while(filename[i] && i < 11)
     {
-        char c = name[i];
+        char c = filename[i];
 
         if(c >= 'a' && c <= 'z')
             c -= 32;
@@ -528,26 +568,46 @@ bool fat16_create_file(const char* name,
     // create dir entry
     FAT16_DirEntry* entry = NULL;
 
-    for(int i = 0; i < bpb.root_entry_count; i++)
+    for(int i = 0; i < max_entries; i++)
     {
-        if(root[i].name[0] == 0x00 || root[i].name[0] == 0xE5)
+        if(target_dir[i].name[0] == 0x00 || target_dir[i].name[0] == 0xE5)
         {
-            entry = &root[i];
+            entry = &target_dir[i];
             break;
         }
     }
 
     if(!entry) return false;
 
-    fat16_format_name(upper, entry->name);
+
+    char fat_name[11];
+    fat16_format_name(upper, fat_name);
+
+    for(int i = 0; i < 8; i++)
+        entry->name[i] = fat_name[i];
+
+    for(int i = 0; i < 3; i++)
+        entry->ext[i] = fat_name[8 + i];
 
     entry->attr = 0x20;
     entry->first_cluster = first_cluster;
     entry->file_size = size;
 
-    ata_write28(first_root_sector,
-                root_dir_sectors,
-                (uint16_t*)root);
+    if(target_dir == root)
+    {
+        ata_write28(first_root_sector,
+                    root_dir_sectors,
+                    (uint16_t*)root);
+    }
+    else
+    {
+        uint16_t cluster = dir_entry.first_cluster;
+        uint32_t lba = fat16_cluster_to_lba(cluster);
+
+        ata_write28(lba,
+                    bpb.sectors_per_cluster,
+                    (uint16_t*)dir_buffer);
+    }
 
     return true;
 }
@@ -584,4 +644,34 @@ void fat16_dump_chain(uint16_t cluster)
     }
 
     printf("EOF\n");
+}
+
+void split_path(const char* path, char* dir, char* file)
+{
+    int len = 0;
+    while(path[len]) len++;
+
+    int last_slash = -1;
+
+    for(int i = 0; i < len; i++)
+    {
+        if(path[i] == '/')
+            last_slash = i;
+    }
+
+    if(last_slash == -1)
+    {
+        // no directory → root
+        dir[0] = 0;
+        strcpy(file, path);
+        return;
+    }
+
+    // directory part
+    for(int i = 0; i < last_slash; i++)
+        dir[i] = path[i];
+    dir[last_slash] = 0;
+
+    // file part
+    strcpy(file, path + last_slash + 1);
 }
